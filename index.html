@@ -452,6 +452,8 @@ a.lb-org:hover{background:var(--corporate-hover);border-color:var(--corporate-ho
 .ins-bar{height:8px;background:var(--n-100)}
 .ins-bar i{display:block;height:100%}
 .ins-s{font-size:12px;line-height:16px;font-weight:700}
+.bn-av{border-radius:50%;background:var(--corporate)!important;color:#000!important}
+.bn-av.c{background:var(--n-100)!important;color:var(--n-600)!important}
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .ccard{background:var(--surface);border:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .ccard:hover{background:var(--n-50)}
@@ -2986,26 +2988,27 @@ function personHeader(x, d) {
   const showEnq = x.kind === 'self' || x.kind === 'colleague' || can('orgEnquiries');
   const stat = (n, l) => `<span class="stat off"><b style="color:var(--ink)">${n}</b><span>${l}</span></span>`;
   const last = x.p?.lastContact ? fmt(x.p.lastContact) : '—';
-  return `<section class="card ch">
-    <div class="ch-top">
-      <span class="av${x.kind === 'contact' ? ' c' : ''}" style="width:64px;height:64px;font-size:20px">${initials(x.name)}</span>
-      <div class="ch-id">
-        <div class="ch-name"><h1>${esc(x.name)}</h1></div>
-        <div class="ch-meta">${esc(x.role || '—')}  ·  ${x.companyId ? `<a class="link" style="font-weight:500" href="#/company/${x.companyId}/overview">${esc(x.company)} →</a>` : esc(x.company)}</div>
-        <div class="chips">${chips.map((t, i) => `<span class="chip${i === 0 && x.kind === 'connected' ? ' ok' : ''}">${esc(t)}</span>`).join('')}</div>
+  const bst = (icon, n, l) => `<div class="bstat"><span class="bs-ic">${icon}</span><span class="stack"><b>${n}</b><span>${l}</span></span></div>`;
+  const statsList = [
+    ...(x.kind === 'contact' ? [] : [[bnIcon('listings'), d.listings.length, 'Listings']]),
+    ...(showEnq ? [[BN_ICON.chat, d.received.length, x.kind === 'self' || x.kind === 'colleague' ? 'Assigned' : x.kind === 'contact' ? 'Enquiries' : 'Received']] : []),
+    ...(showEnq && x.kind !== 'contact' ? [[BN_ICON.sent, d.sent.length, 'Sent']] : []),
+    [BN_ICON.cal, `<small>${x.kind === 'self' || x.kind === 'colleague' ? esc(x.loc) : last}</small>`, x.kind === 'self' || x.kind === 'colleague' ? 'Location' : 'Last contact'],
+  ];
+  const chipHtml = chips.map((t, i) => i === 0 && (x.kind === 'connected' || x.kind === 'self') ? `<span class="statepill"><i aria-hidden="true"></i>${esc(t)}</span>` : `<span class="bn-chip">${esc(t)}</span>`).join('');
+  return `<section class="banner-wrap">
+    <div class="banner${x.kind === 'contact' ? ' added' : ''}"><div class="bn-row">
+      <span class="bn-logo bn-av${x.kind === 'contact' ? ' c' : ''}">${initials(x.name)}</span>
+      <div class="bn-id">
+        <div class="bn-title"><h1>${esc(x.name)}</h1>${chipHtml}</div>
+        <div class="bn-meta"><span>${BN_ICON.user}${esc(x.role || '—')}</span><span>${BN_ICON.tag}${x.companyId ? `<a href="#/company/${x.companyId}/overview" style="color:inherit">${esc(x.company)}</a>` : esc(x.company)}</span>${x.email ? `<span>${BN_ICON.globe}${esc(x.email)}</span>` : ''}</div>
       </div>
-      <div class="acts">${actions}</div>
-    </div>
-    <div class="hr"></div>
-    <div class="stats">
-      ${x.kind === 'contact' ? '' : stat(d.listings.length, 'listings')}
-      ${showEnq ? stat(d.received.length, x.kind === 'self' || x.kind === 'colleague' ? 'enquiries assigned' : x.kind === 'contact' ? 'enquiries with you' : 'enquiries received') : ''}
-      ${showEnq && x.kind !== 'contact' ? stat(d.sent.length, d.sent.length === 1 ? 'enquiry sent' : 'enquiries sent') : ''}
-      ${x.kind === 'self' || x.kind === 'colleague' ? stat(esc(x.email), 'email') : stat(last, 'last contact')}
-    </div>
-    ${x.kind === 'none' ? `<div class="note" style="margin-top:4px">You're not connected with ${esc(x.name.split(' ')[0])}. Connect to message them directly — their listings are visible to everyone on the marketplace.</div>` : ''}
-    ${x.kind === 'contact' ? `<div class="note" style="margin-top:4px">${esc(x.name.split(' ')[0])} isn't on the platform. Details were entered by your team and aren't verified.</div>` : ''}
-  </section>`;
+      <div class="acts">${actions.replace(/class="btn"/g, 'class="btn inv"')}</div>
+    </div></div>
+    <div class="bstats" style="grid-template-columns:repeat(${statsList.length},minmax(0,1fr))">${statsList.map(z => bst(...z)).join('')}</div>
+  </section>
+  ${x.kind === 'none' ? `<div class="note">You're not connected with ${esc(x.name.split(' ')[0])}. Connect to message them directly — their listings are visible to everyone on the marketplace.</div>` : ''}
+  ${x.kind === 'contact' ? `<div class="note">${esc(x.name.split(' ')[0])} isn't on the platform. Details were entered by your team and aren't verified.</div>` : ''}`;
 }
 function personListings(x, d) {
   if (!d.listings.length) return ES('machine', x.kind === 'self' ? 'You haven\u2019t listed any machines yet' : 'No listings yet', x.kind === 'self' ? 'Machines you list appear here with their enquiries.' : `${esc(x.name.split(' ')[0])} hasn\u2019t listed any machines.`, x.kind === 'self' ? '<button class="btn pri" data-act="notInScope" data-what="Create listing">Create listing</button>' : '');

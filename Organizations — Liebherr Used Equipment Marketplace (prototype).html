@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CRM — Liebherr Used Equipment Marketplace (prototype)</title>
+<title>Organizations — Liebherr Used Equipment Marketplace (prototype)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -398,6 +398,27 @@ button.lg-row:hover .lg-l{text-decoration:underline}
   .lc-title{font-size:20px;line-height:26px}
 }
 @container card (max-width:380px){.lc-specs{grid-template-columns:1fr!important;gap:2px 0!important}.lc-specs b{margin-top:6px}}
+.nf{display:flex;flex-direction:column;gap:16px;width:100%;max-width:680px;margin:0 auto}
+.post{border:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column}
+.post-h{display:flex;gap:12px;align-items:center;padding:16px 16px 0}
+.post-t{margin:0;padding:12px 16px;font-size:14px;line-height:22px}
+.post-l{display:flex;gap:12px;align-items:center;margin:0 16px 12px;padding:10px;border:1px solid var(--border);text-decoration:none;color:var(--ink)}
+.post-l:hover{background:var(--n-50)}
+.post-f{display:flex;gap:4px;border-top:1px solid var(--border);padding:6px 8px}
+.post-a{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:8px 12px;cursor:pointer;font-weight:700;font-size:13px;color:var(--muted)}
+.post-a:hover{background:var(--corporate-hover);color:#000}
+.post-a.on{color:var(--ink)}
+.post-c{border-top:1px solid var(--border);padding:12px 16px;display:flex;flex-direction:column;gap:10px;background:var(--n-50)}
+.post-cm{display:flex;gap:10px;align-items:center}
+.es{background:var(--surface);border:1px dashed var(--n-300);padding:40px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.es.bare{border:0;background:none}
+.es.sm{padding:18px 12px;border:0;background:none;gap:4px}
+.es-ic{width:56px;height:56px;border-radius:50%;background:var(--n-50);color:var(--n-500);display:grid;place-items:center;margin-bottom:6px}
+.es.sm .es-ic{width:40px;height:40px;margin-bottom:2px}
+.es-t{font-size:15px;line-height:22px}
+.es.sm .es-t{font-size:13px;line-height:18px}
+.es-d{color:var(--muted);font-size:13px;line-height:19px;max-width:440px}
+.es-a{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;justify-content:center}
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .ccard{background:var(--surface);border:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .ccard:hover{background:var(--n-50)}
@@ -492,7 +513,8 @@ button.bar:hover .bl{text-decoration:underline}
 .stat span{font-size:12px;color:var(--muted)}
 .stat.off{cursor:default;color:var(--muted)}
 .stat:not(.off):hover span{text-decoration:underline}
-.tabs{display:flex;padding:0 8px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabs{display:flex;padding:0 8px;border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:calc(80px + env(safe-area-inset-top,0px));z-index:15;background:var(--surface)}
+.tabs.stuck{box-shadow:0 4px 8px rgba(0,0,0,.08)}
 .tab{display:flex;gap:8px;align-items:center;padding:18px 14px 14px;border-bottom:4px solid transparent;text-decoration:none;font-weight:700;font-size:12px;line-height:16px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .tab .cnt{background:var(--n-100);color:var(--ink);border-radius:12px;padding:2px 7px;font-size:12px;line-height:14px;letter-spacing:0}
 .tab.on{color:var(--ink);border-bottom-color:var(--yellow)}
@@ -1116,7 +1138,7 @@ function topCard(list, key) {
         <span class="bt"><i style="width:${Math.max(3, r.value / rows[0].value * 85)}%;background:var(--steel)"></i></span><span class="bv">${r.value}</span></${tag}>`;
     }).join('')}</div>
     <p class="foot">Top ${rows.length === 1 ? (mode === 'listings' ? 'listing' : 'category') : `${rows.length} ${mode}`} by enquiries received · ${plural(total, 'enquiry', 'enquiries')} in total.${mode === 'categories' ? ' Enquiries not tied to a machine are left out.' : ''}</p>`
-    : '<p class="foot">No enquiries yet.</p>'}</section>`;
+    : ES('chart', 'No enquiries yet', 'Rankings appear once enquiries come in.', '', { compact: true })}</section>`;
 }
 function funnel(d) {
   const max = Math.max(1, d.funnel[0].n);
@@ -1128,6 +1150,25 @@ function funnel(d) {
         <b>${st.n}</b><span class="fv">${money(st.v)}</span></div>`;
   }).join('')}</div>
   <p class="foot">Stages use each enquiry's current status: worked on = anything past New; quoted = Quoted or won. Closed enquiries lost after a quote aren't counted as quoted yet — that needs status history.</p>`;
+}
+/* ---------- Empty states: icon · title · one line of help · optional action ---------- */
+const ES_ICON = {
+  search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5"/>',
+  org: '<path d="M4 21V8l8-4v17M12 9h8v12M2 21h20M7 11h2M7 15h2M15 13h2M15 17h2"/>',
+  people: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.8 3.4-6 6.5-6s5.7 2.2 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.2 4.7 2.2 5.4 5.8"/>',
+  machine: '<path d="M3 17h13v-4H9l-2-4H3zM16 13l5-6M17 17h4"/><circle cx="6" cy="19" r="1.6"/><circle cx="13" cy="19" r="1.6"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 9.5h7M8.5 12.5h4.5"/>',
+  send: '<path d="M3 11 21 3l-6 18-3-8z"/><path d="m12 13 9-10"/>',
+  feed: '<rect x="4" y="4" width="16" height="16"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+  lock: '<rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  activity: '<path d="M3 12h4l3-7 4 14 3-7h4"/>',
+  lost: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',
+  chart: '<path d="M4 20V11M9 20V7M14 20v-6M19 20V4M3 20h18"/>',
+};
+function ES(icon, title, text = '', action = '', opts = {}) {
+  return `<div class="es${opts.compact ? ' sm' : ''}${opts.bare ? ' bare' : ''}"${opts.span ? ' style="grid-column:1/-1"' : ''} role="status">
+    <span class="es-ic" aria-hidden="true"><svg width="${opts.compact ? 22 : 28}" height="${opts.compact ? 22 : 28}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">${ES_ICON[icon] || ES_ICON.search}</svg></span>
+    <b class="es-t">${title}</b>${text ? `<span class="es-d">${text}</span>` : ''}${action ? `<span class="es-a">${action}</span>` : ''}</div>`;
 }
 function bars(rows, { labelClass = '', color, max, action, format } = {}) {
   const m = max ?? Math.max(1, ...rows.map(r => r.value));
@@ -1209,7 +1250,7 @@ function render() {
       return;
     }
   }
-  document.getElementById('page').innerHTML = `<div class="card empty">This screen doesn't exist yet. <a class="link" href="#/organizations">Back to Organizations</a></div>`;
+  document.getElementById('page').innerHTML = ES('lost', 'Page not found', 'This page doesn\u2019t exist or has moved.', '<a class="btn" href="#/organizations">Back to Organizations</a>');
   renderIndex();
 }
 window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); document.body.classList.remove('nav-open'); });
@@ -1245,7 +1286,7 @@ function pageHead(subtitle, isList, orgId, listFilters = '') {
 const alpha = (a, b) => a.name.localeCompare(b.name);
 const feedHtml = feed => feed.length
   ? `<div class="feed">${feed.map(f => `<button class="fi" ${f.enquiry ? `data-act="openEnquiry" data-id="${f.enquiry}"` : `data-act="openCompany" data-id="${f.companyId}"`}><span class="dot${f.join ? ' y' : ''}"></span><span class="stack"><b>${esc(f.title)}</b><span class="muted" style="font-size:12px;line-height:16px">${esc(f.text)}</span></span><span class="d">${fmt(f.date)}</span></button>`).join('')}</div>`
-  : '<p class="foot">Nothing yet.</p>';
+  : ES('activity', 'No activity yet', 'New organizations and joins will show up here.', '', { compact: true });
 
 route('/organizations', (_, q) => {
   if (!can('orgEnquiries')) { setTimeout(() => go('#/organizations/list'), 0); return { title: 'Organizations', html: '' }; }
@@ -1273,7 +1314,7 @@ route('/organizations', (_, q) => {
         <p class="foot">${T.received} enquiries received in the last 90 days.</p></section>
       ${topCard(V.received, 'top')}
       <section class="card panel"><div class="ph"><h2>Open enquiries by organization</h2>${openToggle('open')}</div>
-        ${open.length ? openChart('open', open, 'dashOrg') + `<p class="foot">Open = New, In Progress or Quoted. Top ${open.length} by open enquiries.</p>` : '<p class="foot">No open enquiries.</p>'}</section>
+        ${open.length ? openChart('open', open, 'dashOrg') + `<p class="foot">Open = New, In Progress or Quoted. Top ${open.length} by open enquiries.</p>` : ES('chat', 'No open enquiries', 'Nothing is waiting on a reply right now.', '', { compact: true })}</section>
       <section class="card panel"><h2>Recently added and recently joined</h2>${feedHtml(feed)}</section>
     </div>
     <h2 class="sec-t">Deal value</h2>
@@ -1281,7 +1322,7 @@ route('/organizations', (_, q) => {
     <div class="grid2">
       <section class="card panel"><h2>Enquiry funnel</h2>${funnel(D)}</section>
       <section class="card panel"><h2>Open pipeline by organization</h2>
-        ${pipeByOrg.length ? bars(pipeByOrg, { color: 'var(--steel)', action: 'dashOrg', format: money }) : '<p class="foot">No open deals.</p>'}
+        ${pipeByOrg.length ? bars(pipeByOrg, { color: 'var(--steel)', action: 'dashOrg', format: money }) : ES('chart', 'No open deals', 'Deal values appear once enquiries are in play.', '', { compact: true })}
         <p class="foot">Sum of deal values on New, In Progress and Quoted enquiries.</p></section>
     </div>` : dealLocked()}` };
 });
@@ -1318,7 +1359,7 @@ function orgDashboard(c) {
         <p class="foot">${plural(s.received, 'enquiry', 'enquiries')} received in the last 90 days.</p></section>
       ${topCard(r, 'top')}
       <section class="card panel"><div class="ph"><h2>Open enquiries by ${added ? 'machine' : 'listing'}</h2>${openToggle('open')}</div>
-        ${openBy.length ? openChart('open', openBy, 'tab' + c.id) + '<p class="foot">Open = New, In Progress or Quoted.</p>' : '<p class="foot">No open enquiries.</p>'}</section>
+        ${openBy.length ? openChart('open', openBy, 'tab' + c.id) + '<p class="foot">Open = New, In Progress or Quoted.</p>' : ES('chat', 'No open enquiries', 'Nothing is waiting on a reply right now.', '', { compact: true })}</section>
       <section class="card panel"><h2>Recent activity</h2>${feedHtml(feed)}</section>
     </div>
     <h2 class="sec-t">Deal value</h2>
@@ -1326,7 +1367,7 @@ function orgDashboard(c) {
     <div class="grid2">
       <section class="card panel"><h2>Enquiry funnel</h2>${funnel(D)}</section>
       <section class="card panel"><h2>Open pipeline by ${added ? 'machine' : 'listing'}</h2>
-        ${pipeBy.length ? bars(pipeBy, { color: 'var(--steel)', action: 'tab' + c.id, format: money }) : '<p class="foot">No open deals.</p>'}
+        ${pipeBy.length ? bars(pipeBy, { color: 'var(--steel)', action: 'tab' + c.id, format: money }) : ES('chart', 'No open deals', 'Deal values appear once enquiries are in play.', '', { compact: true })}
         <p class="foot">Sum of deal values on New, In Progress and Quoted enquiries.</p></section>
     </div>` : dealLocked()}` };
 }
@@ -1368,9 +1409,9 @@ function orgCard(c) {
 }
 function listRows() {
   const rows = filteredCompanies();
-  if (ui.orgLayout !== 'table') return rows.length ? rows.map(orgCard).join('') : `<div class="card empty" style="grid-column:1/-1">No organizations match. <button class="link" data-act="clearFilters">Clear filters</button></div>`;
+  if (ui.orgLayout !== 'table') return rows.length ? rows.map(orgCard).join('') : ES('search', 'No organizations match', 'Try a different search, or clear the filters to see everyone.', '<button class="btn" data-act="clearFilters">Clear filters</button>', { span: true });
   const q = ui.list.q.trim().toLowerCase();
-  if (!rows.length) return `<div class="empty">No companies match these filters. <button class="link" data-act="clearFilters">Clear filters</button>${can('addCompany') ? ' or <button class="link" data-act="addCompany">add a company</button>' : ''}.</div>`;
+  if (!rows.length) return ES('search', 'No organizations match', 'Try a different search, or clear the filters to see everyone.', `<button class="btn" data-act="clearFilters">Clear filters</button>${can('addCompany') ? '<button class="btn pri" data-act="addCompany">Add company</button>' : ''}`, { bare: true });
   return rows.map(c => {
     const s = stats(c.id);
     const hit = q && !c.name.toLowerCase().includes(q) ? peopleOf(c.id).find(p => p.name.toLowerCase().includes(q)) : null;
@@ -1388,6 +1429,7 @@ function listRows() {
       ${can('orgEnquiries') ? `<div class="w110 num">${s.received + s.sent}</div>
       <div class="w110 num">${s.inProgress}</div>` : ''}
       <div class="w130">${fmt(c.last)}</div>
+      ${can('removeContact') ? `<div class="w90" style="display:flex;justify-content:flex-end"><button class="oc-del" data-act="removeOrg" data-id="${c.id}" aria-label="Remove ${esc(c.name)}" title="Remove from My Organizations"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button></div>` : ''}
     </div>`;
   }).join('');
 }
@@ -1408,7 +1450,7 @@ route('/organizations/list', (_, query) => {
         <button class="lt-btn${ui.orgLayout === 'table' ? ' on' : ''}" data-act="orgLayout" data-v="table" aria-pressed="${ui.orgLayout === 'table'}" aria-label="List view" title="List view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       </div>`)}
     ${ui.orgLayout === 'table' ? `<div class="tw">
-      <div class="tr th"><div class="c-fl">Company</div><div class="w130">State</div>${can('seeAllPartners') ? '<div class="w150">Sales partner</div>' : ''}<div class="w90">Employees</div><div class="w90">Listings</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div><div class="w110">In progress</div>' : ''}<div class="w130">Last activity</div></div>
+      <div class="tr th"><div class="c-fl">Company</div><div class="w130">State</div>${can('seeAllPartners') ? '<div class="w150">Sales partner</div>' : ''}<div class="w90">Employees</div><div class="w90">Listings</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div><div class="w110">In progress</div>' : ''}<div class="w130">Last activity</div>${can('removeContact') ? '<div class="w90" style="text-align:right">Action</div>' : ''}</div>
       <div id="list-body">${listRows()}</div>
     </div>` : `<div id="list-body" class="org-grid">${listRows()}</div>`}`,
     after: updateCount };
@@ -1428,6 +1470,7 @@ const TABS = [
   { k:'connections', t:'Contacts', n: s => s.connections, addedOff:true },
   { k:'listings', t:'Listings', n: s => s.listings ?? 0, addedOff:true },
   { k:'enquiries', t:'Enquiries', n: s => s.received + s.sent },
+  { k:'newsfeed', t:'Newsfeed', addedOff:true },
 ];
 const inviteLabel = c => can('inviteDirect') ? (c.invite ? 'Resend invite' : 'Invite to platform') : (c.inviteRequested ? 'Invite requested' : 'Request invite');
 /* Company banner — Figma 1321:9810: photo header with dark gradient, white logo tile, stat strip */
@@ -1532,14 +1575,14 @@ function tabPeople(c) {
   return `<div class="sh"><div class="t"><h2>Employees (${ppl.length})</h2><p class="sub">${added ? 'Contacts your team has added. They are unverified until this company joins the platform.' : 'Platform employees and manually added contacts, in one list. Employee details come from SSO and are read-only.'}</p></div>
     <button class="btn sm" data-act="addContact" data-id="${c.id}">Add contact</button></div>
     <div class="tw"><div class="tr th${can('orgEnquiries') ? '' : ' noenq'}"><div class="c-fl">Person</div><div class="w150">Type</div>${can('orgEnquiries') ? '<div class="w120">Enquiries</div>' : ''}<div class="w140">Last contact</div><div class="w190">Action</div></div>
-    ${rows || '<div class="empty">No employees yet. <button class="link" data-act="addContact" data-id="' + c.id + '">Add a contact</button></div>'}</div>`;
+    ${rows || ES('people', added ? 'No contacts yet' : 'No employees yet', added ? 'Add the people you deal with at this company.' : 'Employees appear here when they sign in through Liebherr SSO.', `<button class="btn" data-act="addContact" data-id="${c.id}">Add contact</button>`, { bare: true })}</div>`;
 }
 
 function tabConnections(c) {
   const conn = peopleOf(c.id).filter(p => p.type === 'employee' && p.conn === 'connected');
   return `<div class="sh"><div class="t"><h2>Contacts (${conn.length})</h2><p class="sub">People at ${esc(c.name)} you're connected with.</p></div></div>
     <div class="tw"><div class="tr th"><div class="c-fl">Contact</div><div class="w190">Connected via</div><div class="w90" style="text-align:right">Action</div></div>
-    ${conn.map(p => `<div class="tr"><a class="c-fl plink" href="#/person/${p.id}" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit"><span class="av">${initials(p.name)}</span><span class="stack"><span class="nm">${esc(p.name)}</span><span class="two" style="font-size:12px">${esc(p.role)}</span></span></a><div class="w190 muted">${esc(ME.name)}</div><div class="w90" style="display:flex;justify-content:flex-end"><button class="ibtn danger" data-act="removeConn" data-id="${p.id}" aria-label="Remove ${esc(p.name)} from your contacts" title="Remove contact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button></div></div>`).join('') || '<div class="empty">No contacts at this company yet.</div>'}</div>`;
+    ${conn.map(p => `<div class="tr"><a class="c-fl plink" href="#/person/${p.id}" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit"><span class="av">${initials(p.name)}</span><span class="stack"><span class="nm">${esc(p.name)}</span><span class="two" style="font-size:12px">${esc(p.role)}</span></span></a><div class="w190 muted">${esc(ME.name)}</div><div class="w90" style="display:flex;justify-content:flex-end"><button class="ibtn danger" data-act="removeConn" data-id="${p.id}" aria-label="Remove ${esc(p.name)} from your contacts" title="Remove contact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button></div></div>`).join('') || ES('people', 'No contacts yet', `You aren\u2019t connected with anyone at ${esc(c.name)}. Connect from the Employees tab.`, `<button class="btn" data-act="tab" data-id="${c.id}" data-tab="people">Go to Employees</button>`, { bare: true })}</div>`;
 }
 
 function nestedEnquiries(lid) {
@@ -1572,7 +1615,7 @@ function tabListings(c, s, q) {
   }).join('');
   const note = !can('orgEnquiries') ? '' : orgSide(c) ? '' : `Only enquiries your team sent about these listings are shown. Enquiries ${esc(c.name)} received from other companies are private to them.`;
   return `<div class="sh"><div class="t"><h2>Marketplace listings (${L.length})</h2><p class="sub">Machines listed by ${esc(c.name.split(' ')[0])}'s employees.</p></div></div>
-    <div class="tw"><div class="tr th"><div class="c-fl" style="min-width:320px">Machine</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w260" style="text-align:right">Actions</div></div>${rows || '<div class="empty">No listings.</div>'}</div>
+    ${rows ? `<div class="tw"><div class="tr th"><div class="c-fl" style="min-width:320px">Machine</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w260" style="text-align:right">Actions</div></div>${rows}</div>` : ES('machine', 'No listings yet', `${esc(c.name)} hasn\u2019t listed any machines.`)}
     ${note ? `<div class="recon">${note}</div>` : ''}`;
 }
 function enqRow(e) {
@@ -1603,9 +1646,51 @@ function tabEnquiries(c, s) {
     : `${parts.join(' + ')} against listings${coList ? `, plus ${coList.length} company-level` : ''} = ${s.received}, matching the header stat and the tab count.`;
   return `<div class="sh"><div class="t"><h2>Enquiries received (${s.received})</h2><p class="sub">${added ? `Enquiries from ${esc(c.name)} logged by your team. This company is not on the platform, so every entry was added manually.` : orgSide(c) ? `Against ${esc(c.name.split(' ')[0])}'s listings, plus enquiries made to the company that are not tied to a machine. Super Admin view — sales partners see only their own enquiries with this organization.` : `Enquiries ${esc(c.name)} sent to ${esc(PARTNERS[c.partner].name)}. Enquiries they received from other companies are private to them.`}</p></div>
     <button class="btn sm" data-act="logEnquiry" data-id="${c.id}">Log enquiry</button></div>
-    ${r.length ? out + coHtml + `<div class="recon">${recon}</div>` : `<div class="card empty">No enquiries yet. <button class="link" data-act="logEnquiry" data-id="${c.id}">Log one manually</button></div>`}`;
+    ${r.length ? out + coHtml + `<div class="recon">${recon}</div>` : ES('chat', 'No enquiries yet', added ? `Log enquiries from ${esc(c.name)} that reach you by phone, email or in person.` : `Nothing received ${orgSide(c) ? 'by' : 'from'} ${esc(c.name)} yet.`, `<button class="btn" data-act="logEnquiry" data-id="${c.id}">Log enquiry</button>`)}`;
 }
 
+/* ---------- Company Newsfeed tab ---------- */
+const POSTS = {
+  bauer: [
+    { id: 'p-b1', by: 'klaus', date: '2026-09-22', kind: 'update', text: 'Big week for the Hamburg team — we\u2019ve won the Elbe bridge renovation contract. We\u2019ll be adding capacity over the next quarter and are open to offers on used mobile cranes in the 200 t class.' },
+    { id: 'p-b2', by: 'anna', date: '2026-09-10', kind: 'update', text: 'Our A 914 is now reserved. Thanks to everyone who got in touch — we have a second unit coming available in November.' },
+  ],
+  nordicc: [{ id: 'p-n1', by: 'erik', date: '2026-09-17', kind: 'update', text: 'Fleet refresh in Stockholm: eleven machines listed this month, all serviced by Liebherr Service Sweden. Delivery across the Nordics included.' }],
+  comptoir: [{ id: 'p-c1', by: 'pierre', date: '2026-09-14', kind: 'update', text: 'Nous serons au salon Intermat en avril — come and see our used LR 1300 on the stand.' }],
+  varga: [{ id: 'p-v1', by: 'tomas', date: '2026-09-20', kind: 'update', text: 'VargaBau is now on the Liebherr Used Equipment Marketplace. Looking forward to working with sales partners across Central Europe.' }],
+  thames: [{ id: 'p-t1', by: 'mark', date: '2026-09-19', kind: 'update', text: 'Hire season is winding down — a couple of our excavators are available to buy outright. Details in our listings.' }],
+};
+const nfUi = { filter: '' };
+function companyPosts(c) {
+  const h = s => [...s].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+  const listingPosts = listingsOf(c.id).map(l => ({ id: 'p-l-' + l.id, by: l.lister, date: `2026-0${8 + h(l.id) % 2}-${String(1 + h(l.id) % 27).padStart(2, '0')}`, kind: 'listing', listingId: l.id,
+    text: l.status === 'Sold' ? `${l.model} has been sold. Thank you to everyone who enquired.` : l.status === 'Reserved' ? `${l.model} is now reserved.` : `New listing: ${l.model} (${l.year}). Serviced and ready for inspection.` }));
+  return [...(POSTS[c.id] || []), ...listingPosts].sort((a, b) => b.date.localeCompare(a.date));
+}
+const postState = id => { db.postState = db.postState || {}; return db.postState[id] = db.postState[id] || { likes: 3 + [...id].reduce((a, ch) => a + ch.charCodeAt(0), 0) % 17, liked: false, comments: [] }; };
+function tabNewsfeed(c) {
+  const all = companyPosts(c), list = nfUi.filter ? all.filter(p => p.kind === nfUi.filter) : all;
+  const chip = (k, l) => `<a href="#" class="${nfUi.filter === k ? 'on' : ''}" data-act="nfFilter" data-v="${k}" role="tab" aria-selected="${nfUi.filter === k}">${l}</a>`;
+  return `<div class="sh"><div class="t"><h2>Newsfeed</h2><p class="sub">Updates and listing news from ${esc(c.name)}.</p></div>
+      <div class="subtabs" role="tablist" aria-label="Filter posts">${chip('', 'All')}${chip('update', 'Updates')}${chip('listing', 'Listings')}</div></div>
+    ${list.length ? `<div class="nf">${list.map(p => postCard(c, p)).join('')}</div>` : ES('feed', nfUi.filter === 'listing' ? 'No listing news yet' : nfUi.filter === 'update' ? 'No updates yet' : 'No posts yet', `When ${esc(c.name)} shares news or lists a machine, it shows up here.`, nfUi.filter ? '<button class="btn" data-act="nfFilter" data-v="">Show all posts</button>' : '')}`;
+}
+function postCard(c, p) {
+  const who = person(p.by), st = postState(p.id), L = p.listingId ? listingOf('l:' + p.listingId) : null;
+  return `<article class="post" aria-label="Post by ${esc(who?.name || c.name)}">
+    <header class="post-h"><span class="oc-logo" style="width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;flex:0 0 40px;font-size:13px">${esc(initials(c.name))}</span>
+      <span class="stack" style="flex:1;min-width:0"><b>${esc(c.name)}</b><span class="two" style="font-size:12px">${who ? `<a class="link" style="font-weight:500" href="#/person/${who.id}">${esc(who.name)}</a> · ` : ''}${fmt(p.date)}${p.kind === 'listing' ? ' · Listing' : ''}</span></span></header>
+    <p class="post-t">${esc(p.text)}</p>
+    ${L ? `<a class="post-l" href="#/machine/${L.key}"><span class="thumb mthumb" style="width:96px;height:64px">${machineArt(L.kind)}</span><span class="stack" style="flex:1;min-width:0"><b>${esc(L.model)}</b><span class="two" style="font-size:12px">${esc(L.cat)} · ${L.year} · ${esc(L.city)}</span><span style="margin-top:4px"><b>${eur(L.price)}</b> ${lbadge(L.status)}</span></span><span class="btn sm">View details</span></a>` : ''}
+    <footer class="post-f">
+      <button class="post-a${st.liked ? ' on' : ''}" data-act="nfLike" data-id="${p.id}" aria-pressed="${st.liked}"><svg width="18" height="18" viewBox="0 0 24 24" fill="${st.liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.6"><path d="M7 11v9H4v-9zM7 11l4-8c1.7 0 3 1.3 3 3v3h5.5a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 18.3 20H7"/></svg>${st.likes + (st.liked ? 1 : 0)}</button>
+      <button class="post-a" data-act="nfComment" data-id="${p.id}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4z"/></svg>${st.comments.length ? plural(st.comments.length, 'comment') : 'Comment'}</button>
+      <button class="post-a" data-act="notInScope" data-what="Share post"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></svg>Share</button>
+    </footer>
+    ${st.comments.length || nfUi.open === p.id ? `<div class="post-c">${st.comments.map(k => `<div class="post-cm"><span class="av" style="width:28px;height:28px;font-size:10px">${initials(k.by)}</span><span class="stack"><b style="font-size:13px">${esc(k.by)}</b><span style="font-size:13px">${esc(k.text)}</span></span></div>`).join('')}
+      ${nfUi.open === p.id ? `<div class="post-cm"><span class="av" style="width:28px;height:28px;font-size:10px">${initials(ME.name)}</span><input class="search" style="flex:1;width:auto" name="nfc-${p.id}" placeholder="Write a comment…" aria-label="Write a comment"><button class="btn sm pri" data-act="nfSend" data-id="${p.id}">Post</button></div>` : ''}</div>` : ''}
+  </article>`;
+}
 function tabSent(c) {
   const S = sentOf(c.id), side = orgSide(c);
   const sub = side ? `Enquiries ${esc(c.name.split(' ')[0])}'s employees made — to other companies' listings and to ${esc(PARTNERS[c.partner].name)}.`
@@ -1613,23 +1698,23 @@ function tabSent(c) {
   return `<div class="sh"><div class="t"><h2>Enquiries sent (${S.length})</h2><p class="sub">${sub}</p></div></div>
     ${S.length ? `<div class="tw"><div class="tr th"><div class="c-fl">Machine · ${side ? 'sent to' : 'owner'}</div><div class="w160">Sent by</div><div class="w120">Via</div><div class="w120">Date</div><div class="w120">Status</div></div>
     ${S.map(x => `<div class="tr click" ${x.enquiry ? `data-act="openEnquiry" data-id="${x.enquiry}" role="button"` : `data-href="#/company/${x.toId}/overview" role="link"`} tabindex="0"><div class="c-fl stack"><span class="nm">${esc(x.machine)}</span><span class="two" style="font-size:12px">${esc(x.to || '')}</span></div><div class="w160">${esc(x.by || '')}</div><div class="w120">${esc(x.channel)}</div><div class="w120">${fmt(x.date)}</div><div class="w120">${badge(x.status)}</div></div>`).join('')}</div>`
-    : `<div class="card empty">${c.state === 'added' ? `${esc(c.name)} isn't on the platform, so there are no listings to enquire on.` : side ? 'No enquiries sent yet.' : `Your team hasn't enquired on ${esc(c.name)}'s listings yet.`}</div>`}`;
+    : ES('send', 'No enquiries sent', c.state === 'added' ? `${esc(c.name)} isn\u2019t on the platform, so there are no listings to enquire on.` : side ? `${esc(c.name)} hasn\u2019t sent any enquiries yet.` : `Your team hasn\u2019t enquired on ${esc(c.name)}\u2019s listings yet.`, c.state === 'added' || side ? '' : `<button class="btn" data-act="tab" data-id="${c.id}" data-tab="listings">Browse their listings</button>`)}`;
 }
 
 route('/company/:id/:tab?', (p, q) => {
   const c = co(p.id);
   if (c && !canSeeCompany(c, true)) return { title: 'No access', html: `<div class="card noaccess"><b style="font-size:16px">You don't have access to ${esc(c.name)}</b><span class="muted">${ME.role === 'coworker' ? 'It isn\'t assigned to you. Ask your sales partner admin to assign you an enquiry there.' : 'It belongs to another sales partner.'}</span><a class="btn" href="#/organizations/list">Back to Organizations</a></div>` };
   if (c && ME.role === 'super' && db.ui.partnerFilter && c.partner !== db.ui.partnerFilter) { db.ui.partnerFilter = ''; }
-  if (!c) return { title: 'Not found', html: `<div class="card empty">This company isn't in your organizations. <a class="link" href="#/organizations/list">Back to the list</a></div>` };
+  if (!c) return { title: 'Not found', html: ES('org', 'Organization not found', 'It isn\u2019t in your organizations, or it was removed.', '<a class="btn" href="#/organizations/list">Back to My Organizations</a>') };
   let tab = p.tab || 'overview';
   if (tab === 'sent') { tab = 'enquiries'; q.seg = 'sent'; }
   if (tab === 'enquiries' && !can('orgEnquiries')) tab = 'overview';   // old links to the Sent tab
   const s = stats(c.id);
-  if (c.state === 'added' && (tab === 'connections' || tab === 'listings')) tab = 'overview';
+  if (c.state === 'added' && (tab === 'connections' || tab === 'listings' || tab === 'newsfeed')) tab = 'overview';
   const seg = q.seg === 'sent' ? 'sent' : 'received';
   const subTabs = `<div class="subtabs" role="tablist" aria-label="Enquiries">${[['received', 'Received', s.received], ['sent', 'Sent', s.sent]].map(([k, l, n]) => `<a role="tab" href="#/company/${c.id}/enquiries${k === 'sent' ? '?seg=sent' : ''}" class="${seg === k ? 'on' : ''}" aria-selected="${seg === k}">${l} <span class="cnt">${n}</span></a>`).join('')}</div>`;
   const body = tab === 'enquiries' ? subTabs + (seg === 'sent' ? tabSent(c, s, q) : tabEnquiries(c, s, q))
-    : { overview: tabOverview, people: tabPeople, connections: tabConnections, listings: tabListings }[tab](c, s, q);
+    : { overview: tabOverview, people: tabPeople, connections: tabConnections, listings: tabListings, newsfeed: tabNewsfeed }[tab](c, s, q);
   const tabs = TABS.filter(t => t.k !== 'enquiries' || can('orgEnquiries')).map(t => {
     const off = c.state === 'added' && t.addedOff;
     const n = t.n ? t.n(s) : null;
@@ -1642,6 +1727,7 @@ route('/company/:id/:tab?', (p, q) => {
     <section class="card"><nav class="tabs" aria-label="Company sections">${tabs}</nav><div class="tc">${body}</div></section>`,
     after: () => { if (q.open) { const el = document.getElementById('row-' + q.open); if (el) { el.scrollIntoView({ block: 'center' }); el.classList.add('flash'); } } } };
 });
+screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Newsfeed', figma:'new', href:'#/company/bauer/newsfeed' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Overview (Connected)', figma:'1332:10321', href:'#/company/bauer/overview' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Employees', figma:'1332:10498', href:'#/company/bauer/people' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Listings (expanded)', figma:'1332:10675', href:'#/company/bauer/listings?open=l1' });
@@ -2146,7 +2232,7 @@ route('/my-listings', () => {
       <span class="sp"></span>
       <span class="select" style="margin:8px 0"><select data-mkstatus aria-label="Status"><option value="">All statuses</option>${['Published', 'Reserved', 'Sold', 'Deactivated'].map(x => `<option ${mkUi.status === x ? 'selected' : ''}>${x}</option>`).join('')}</select></span>
     </nav>
-    <div class="mk-grid">${mine.length ? mine.map(listingCard).join('') : '<div class="card empty">No listings match.</div>'}</div>` };
+    <div class="mk-grid">${mine.length ? mine.map(listingCard).join('') : (mListingsVisible().length ? ES('search', 'No listings match', 'Try another status, or show all your listings.', '<button class="btn" data-act="mkStatusAll">Show all</button>', { span: true }) : ES('machine', 'No listings yet', 'Machines you list appear here with their enquiries.', '<button class="btn pri" data-act="notInScope" data-what="Create listing">Create listing</button>', { span: true }))}</div>` };
 });
 screen({ group:'My Listings — Machine enquiries (Section 2)', title:'My Listings — cards with controls', figma:'1256:87539', href:'#/my-listings' });
 
@@ -2203,7 +2289,7 @@ route('/marketplace', () => {
         ${tog('table', 'Table view', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>')}
       </div>
     </nav>
-    ${items.length ? (mkt.layout === 'grid' ? `<div class="mk-grid">${items.map(mktCard).join('')}</div>` : mktTable(items)) : '<div class="card empty">No machines listed right now.</div>'}` };
+    ${items.length ? (mkt.layout === 'grid' ? `<div class="mk-grid">${items.map(mktCard).join('')}</div>` : mktTable(items)) : ES('machine', 'No machines listed right now', 'Check back soon — sales partners and your network add listings every week.')}` };
 });
 screen({ group:'Marketplace — browse', title:'Marketplace — card view', figma:'new', act:'mktDemo', id:'grid' });
 screen({ group:'Marketplace — browse', title:'Marketplace — table view', figma:'new', act:'mktDemo', id:'table' });
@@ -2244,7 +2330,7 @@ function mkList(m) {
       <div class="w140 stack"><span>${esc(e.channel)}</span><span class="two" style="font-size:12px">${esc(e.origin)}</span></div>
       <div class="w120 stack"><span>${fmt(e.date)}</span><span class="two" style="font-size:12px">${e.time}</span></div>
       <div class="w110">${badge(e.status)}</div></div>`).join('')}</div>`
-    : `<div class="card empty">${all.length ? `No ${f.toLowerCase()} enquiries. <button class="link" data-act="mkFilter" data-v="">Show all</button>` : `No enquiries for this listing yet. Marketplace enquiries arrive here automatically — or <button class="link" data-act="mkAdd">log one</button> that came by phone or email.`}</div>`}`;
+    : (all.length ? ES('search', `No ${f.toLowerCase()} enquiries`, 'None of this listing\u2019s enquiries have that status.', '<button class="btn" data-act="mkFilter" data-v="">Show all</button>') : ES('chat', 'No enquiries yet', 'Marketplace enquiries arrive here automatically. You can also log ones that came by phone or email.', canManageEnq(m) ? '<button class="btn pri" data-act="mkAdd">+ Add enquiry</button>' : ''))}`;
 }
 const isPlatform = e => e.origin === 'Liebherr Marketplace';
 const contactKey = e => `${e.fromName}|${e.fromCo}`;
@@ -2340,6 +2426,7 @@ function mkForm(m) {
 
 /* ---------- actions ---------- */
 Object.assign(ACTIONS, {
+  mkStatusAll: () => { mkUi.status = ''; render(); },
   mktLayout: el => { mkt.layout = el.dataset.v; render(); },
   mktDemo: el => { const v = el.dataset.id; mkt.layout = v === 'table' ? 'table' : 'grid'; go('#/marketplace'); if (v === 'detail') setTimeout(() => ACTIONS.mktView({ dataset: { id: marketItems()[0].key } }), 40); },
   mktView: el => { go('#/machine/' + el.dataset.id); },
@@ -2533,15 +2620,14 @@ function contactCard(p) {
       <div><span>Email</span>${p.email ? `<a href="mailto:${esc(p.email)}" class="ellip">${esc(p.email)}</a>` : '<em>—</em>'}</div>
       <div><span>Phone</span>${p.phone ? `<a href="tel:${esc(p.phone.replace(/\s/g, ''))}">${esc(p.phone)}</a>` : '<em>—</em>'}</div>
     </div>
-    ${can('orgEnquiries') ? `<div class="cc-stats"><div><b>${enq.length}</b><span>enquiries</span></div><div><b>${open}</b><span>open</span></div><div><b style="font-size:13px">${p.lastContact ? fmt(p.lastContact) : '—'}</b><span>last contact</span></div></div>` : ''}
     <div class="cc-foot"><span class="two" style="font-size:11px">${emp ? 'SSO verified · read-only' : `Unverified · added by ${esc(p.addedBy || 'your team')}`}</span>
-      <span style="display:flex;gap:6px">${!emp ? `<button class="btn sm ghost" data-act="editContact" data-id="${p.id}">Edit</button>` : ''}${primary}</span></div>
+      <span style="display:flex;gap:6px">${primary}</span></div>
   </article>`;
 }
 function contactsBody() {
   const list = contactList();
   return list.length ? `<div class="cc-grid">${list.map(contactCard).join('')}</div>`
-    : `<div class="card empty">No contacts match. <button class="link" data-act="ctClear">Clear filters</button>.</div>`;
+    : (V.people.length ? ES('search', 'No contacts match', 'Try a different search or tab, or clear the filters.', '<button class="btn" data-act="ctClear">Clear filters</button>') : ES('people', 'No contacts yet', 'People appear here once you connect with them or add them to an organization.', '<a class="btn" href="#/organizations/list">Go to My Organizations</a>'));
 }
 route('/contacts', () => {
   const all = V.people;
@@ -2613,7 +2699,7 @@ const gradeBadge = g => `<span class="badge" style="background:${g === 'Good' ? 
 
 route('/machine/:key', (p, q) => {
   const L = listingOf(decodeURIComponent(p.key));
-  if (!L) return { title: 'Not found', html: '<div class="card empty">This machine isn\u2019t listed any more. <a class="link" href="#/marketplace">Back to Marketplace</a></div>' };
+  if (!L) return { title: 'Not found', html: ES('machine', 'Machine not available', 'This machine isn\u2019t listed any more.', '<a class="btn" href="#/marketplace">Back to Marketplace</a>') };
   if (q.tab) mdUi.tab = q.tab;
   const enq = enqForKey(L.key), ins = inspectionOf(L);
   const orgVisible = L.companyId && V.companies.some(c => c.id === L.companyId);
@@ -2631,12 +2717,12 @@ route('/machine/:key', (p, q) => {
     <div class="tw"><div class="tr th"><div class="c-fl">Component</div><div class="w150">Condition</div></div>${ins.items.map(it => `<div class="tr"><div class="c-fl">${esc(it.part)}</div><div class="w150">${gradeBadge(it.grade)}</div></div>`).join('')}</div>
     <div class="note">${esc(ins.notes)}</div>`;
   else if (mdUi.tab === 'enquiries') body = !enqAllowed
-    ? `<div class="card empty">Enquiry details aren't available for listings outside your organization.</div>`
+    ? ES('lock', 'Enquiries not available', 'Enquiry details are only shown for listings in your own organization.')
     : enq.length ? `<div class="sh"><div class="t"><h2>Enquiries (${enq.length})</h2><p class="sub">${L.t === 'm' ? 'Enquiries received for this listing.' : ME.role === 'super' ? `All enquiries ${esc(L.owner)} received for this machine.` : `Enquiries your team sent about this machine. ${esc(L.owner)}'s other enquiries are private to them.`}</p></div>
         <button class="btn sm" data-act="mkOpen" data-id="${L.key}">Open enquiry manager</button></div>
       <div class="tw etable"><div class="tr th"><div class="msgc">Message</div><div class="w190">From</div><div class="w140">Via</div><div class="w120">Date</div><div class="w110">Status</div></div>
       ${enq.map(e => `<div class="tr click" data-act="mdEnquiry" data-id="${e.id}" data-key="${L.key}" role="button" tabindex="0"><div class="msgc">${esc(e.message.length > 90 ? e.message.slice(0, 88) + '…' : e.message)}</div><div class="w190 stack"><b>${esc(e.fromName)}</b><span class="two" style="font-size:12px">${esc(e.fromCo)}</span></div><div class="w140 stack"><span>${esc(e.channel)}</span><span class="two" style="font-size:12px">${esc(e.origin)}</span></div><div class="w120 stack"><span>${fmt(e.date)}</span><span class="two" style="font-size:12px">${e.time || ''}</span></div><div class="w110">${badge(e.status)}</div></div>`).join('')}</div>`
-      : `<div class="card empty">No enquiries ${L.t === 'm' || ME.role === 'super' ? 'for this machine yet' : 'from your team about this machine'}.</div>`;
+      : ES('chat', 'No enquiries yet', L.t === 'm' || ME.role === 'super' ? 'Nobody has enquired about this machine yet.' : 'Your team hasn\u2019t enquired about this machine.', canEnquire ? `<button class="btn pri" data-act="mkSend" data-id="${L.id}">Send enquiry</button>` : '');
   else body = `
     <div class="row2" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
       <section class="about" style="border:1px solid var(--border)"><h2>Description</h2>
@@ -2768,7 +2854,7 @@ function personHeader(x, d) {
   </section>`;
 }
 function personListings(x, d) {
-  if (!d.listings.length) return `<div class="card empty">${x.kind === 'self' ? "You haven't listed any machines yet." : 'No listings.'}</div>`;
+  if (!d.listings.length) return ES('machine', x.kind === 'self' ? 'You haven\u2019t listed any machines yet' : 'No listings yet', x.kind === 'self' ? 'Machines you list appear here with their enquiries.' : `${esc(x.name.split(' ')[0])} hasn\u2019t listed any machines.`, x.kind === 'self' ? '<button class="btn pri" data-act="notInScope" data-what="Create listing">Create listing</button>' : '');
   const showEnq = x.kind === 'self' || x.kind === 'colleague' || can('orgEnquiries');
   return `<div class="sh"><div class="t"><h2>Listings by ${x.kind === 'self' ? 'you' : esc(x.name)} (${d.listings.length})</h2><p class="sub">Machines ${x.kind === 'self' ? 'you have' : 'this person has'} listed on behalf of ${esc(x.company)}.</p></div></div>
     <div class="tw"><div class="tr th"><div class="c-fl" style="min-width:300px">Machine</div>${showEnq ? '<div class="w150">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w150"></div></div>
@@ -2780,7 +2866,7 @@ function personListings(x, d) {
 }
 function psEnquiriesTab(x, d) {
   const rows = [...d.received.map(e => ({ e, dir: 'Received' })), ...d.sent.map(e => ({ e, dir: 'Sent' }))].sort((a, b) => b.e.date.localeCompare(a.e.date));
-  if (!rows.length) return `<div class="card empty">No enquiries ${x.kind === 'self' ? 'assigned to you' : 'you can see'} yet.</div>`;
+  if (!rows.length) return ES('chat', 'No enquiries yet', x.kind === 'self' ? 'Enquiries assigned to you or sent by you will appear here.' : 'There are no enquiries you\u2019re allowed to see for this person.');
   return `<div class="sh"><div class="t"><h2>Enquiries (${rows.length})</h2><p class="sub">${x.kind === 'self' ? 'Enquiries assigned to you and ones you sent.' : x.kind === 'contact' ? `Enquiries ${esc(x.name)} made to your company.` : `Enquiries on ${esc(x.name.split(' ')[0])}'s listings and ones they sent — as far as you're allowed to see.`}</p></div></div>
     <div class="tw"><div class="tr th"><div class="c-fl">Machine</div><div class="w110">Direction</div><div class="w190">${x.kind === 'self' ? 'From / to' : 'From'}</div><div class="w120">Date</div><div class="w110">Status</div></div>
     ${rows.map(({ e, dir }) => { const k = enqKey(e); return `<div class="tr click" ${k ? `data-act="psEnquiry" data-key="${k}" data-id="${e.id}"` : `data-act="openEnquiry" data-id="${e.id}"`} role="button" tabindex="0">
@@ -2795,13 +2881,13 @@ function personActivity(x, d) {
     ...(x.p?.conn === 'connected' ? [{ at: (x.p.lastContact || '2026-09-01') + 'T09:00', title: 'Connection', text: `Connected with ${ME.name}`, by: 'System', sys: true, about: 'Contact' }] : []),
     ...(x.kind === 'contact' ? [{ at: (x.c?.added || '2026-09-01') + 'T09:00', title: 'Contact added', text: `Added to ${x.company}`, by: x.p?.addedBy || 'Your team', sys: true, about: 'Contact' }] : []),
   ].sort((a, b) => b.at.localeCompare(a.at));
-  if (!items.length) return '<div class="card empty">No activity yet.</div>';
+  if (!items.length) return ES('activity', 'No activity yet', 'Calls, emails, notes and status changes will show up here.');
   return `<div class="sh"><div class="t"><h2>Activity</h2><p class="sub">Everything logged ${x.kind === 'self' ? 'by you' : 'with ' + esc(x.name.split(' ')[0])}, newest first.</p></div></div>
     <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px">${items.map(a => `<div class="logitem${a.sys ? ' sys' : ''}"><div class="lt"><i></i>${esc(a.title)}${a.about ? ` <span class="two" style="font-weight:500">· ${esc(a.about)}</span>` : ''}</div><div>${esc(a.text)}</div><div class="meta">${esc(a.by)} · ${fmtAt(a.at)}</div></div>`).join('')}</div>`;
 }
 route('/person/:id', (p, q) => {
   const x = personCtx(decodeURIComponent(p.id));
-  if (!x) return { title: 'Not found', html: '<div class="card empty">This person isn\u2019t in your contacts.</div>' };
+  if (!x) return { title: 'Not found', html: ES('people', 'Contact not found', 'This person isn\u2019t in your contacts, or they were removed.', '<a class="btn" href="#/contacts">Back to Contacts</a>') };
   if (x.kind === 'noaccess') return { title: 'No access', html: `<div class="card noaccess"><b style="font-size:16px">You don't have access to ${esc(x.name)}</b><span class="muted">They belong to an organization outside your scope.</span><a class="btn" href="#/contacts">Back to Contacts</a></div>` };
   const d = personData(x);
   const showEnq = x.kind === 'self' || x.kind === 'colleague' || can('orgEnquiries');
@@ -2826,6 +2912,16 @@ screen({ group:'Contact details (Figma 1321:9985)', title:'Connected — Klaus B
 screen({ group:'Contact details (Figma 1321:9985)', title:'Not connected — Anna Vogel', figma:'new', href:'#/person/anna' });
 screen({ group:'Contact details (Figma 1321:9985)', title:'Added contact (unverified) — Marie Dubois', figma:'new', href:'#/person/marie' });
 
+Object.assign(ACTIONS, {
+  nfFilter: el => { nfUi.filter = el.dataset.v; render(); },
+  nfLike: el => { const st = postState(el.dataset.id); st.liked = !st.liked; save(); render(); },
+  nfComment: el => { nfUi.open = nfUi.open === el.dataset.id ? null : el.dataset.id; render(); document.querySelector(`[name="nfc-${el.dataset.id}"]`)?.focus(); },
+  nfSend: el => { const i = document.querySelector(`[name="nfc-${el.dataset.id}"]`); const t = (i?.value || '').trim(); if (!t) { i?.focus(); return; } postState(el.dataset.id).comments.push({ by: ME.name, text: t }); nfUi.open = null; save(); render(); toast('Comment posted'); },
+});
+
+(() => { let raf; window.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => {
+  const t = document.querySelector('.tabs'); if (!t) return; const top = 80 + (parseFloat(getComputedStyle(document.documentElement).paddingTop) || 0);
+  t.classList.toggle('stuck', Math.round(t.getBoundingClientRect().top) <= top && window.scrollY > 0); }); }, { passive: true }); })();
 render();
 </script>
 </body>

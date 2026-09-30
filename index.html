@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Organizations — Liebherr Used Equipment Marketplace (prototype)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +15,7 @@
    TOKENS — taken from Figma Section 5 (node 1332:9966)
    ============================================================ */
 :root{
+  color-scheme:light only;
   /* Liebherr pattern library v3 — Figma "Components" page 785:48181 */
   --corporate:#ffd000; --corporate-hover:#edb211;          /* primary button default / hover */
   --black:#000000; --white:#ffffff;
@@ -35,27 +37,12 @@
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#1d2023; --surface:var(--n-800); --ink:var(--white); --muted:var(--n-300); --faint:var(--n-400);
-    --border:var(--n-500); --thead:var(--n-700); --chip:var(--n-700); --row-open:#3a3417; --nested:#2f2c1e; --nested-line:#4a4428;
-    --success:#73d95f; --warning:#f89939; --error:#ff7070; --slate:#8bb2c2; --added:var(--n-600);
-    --dot:var(--n-500); --scrim:rgba(0,0,0,.6); --shadow:0 4px 12px rgba(0,0,0,.4);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#1d2023; --surface:var(--n-800); --ink:var(--white); --muted:var(--n-300); --faint:var(--n-400);
-  --border:var(--n-500); --thead:var(--n-700); --chip:var(--n-700); --row-open:#3a3417; --nested:#2f2c1e; --nested-line:#4a4428;
-  --success:#73d95f; --warning:#f89939; --error:#ff7070; --slate:#8bb2c2; --added:var(--n-600);
-  --dot:var(--n-500); --scrim:rgba(0,0,0,.6); --shadow:0 4px 12px rgba(0,0,0,.4);
-}
 *,*::before,*::after{box-sizing:inherit}
 html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
 body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:500 13px/18px var(--font);-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--black);outline-offset:2px}
-[data-theme=dark] :focus-visible{outline-color:var(--white)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 /* ---------- chrome ---------- */
@@ -362,7 +349,7 @@ button.lg-row:hover .lg-l{text-decoration:underline}
 .oc-more{margin-left:-6px;background:var(--corporate);color:#000;border:1px solid var(--surface);border-radius:12px;height:26px;min-width:28px;padding:0 6px;display:grid;place-items:center;font-weight:700;font-size:16px;line-height:24px}
 .hide{display:none!important}
 .w260{width:260px;flex:none}
-.acts-cell{display:flex;gap:8px;justify-content:flex-end}
+.acts-cell{display:flex;gap:6px;justify-content:flex-end;align-items:center}
 .md-top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(320px,1fr);gap:24px;padding:20px}
 @media (max-width:1000px){.md-top{grid-template-columns:1fr}}
 .md-gal{display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -434,7 +421,7 @@ button.lg-row:hover .lg-l{text-decoration:underline}
 .tpill.internal{border-color:var(--corporate);background:#fff6cc;color:#000}
 .bn-title .tpill{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5);color:#fff}
 .bn-title .tpill.internal{background:var(--corporate);border-color:var(--corporate);color:#000}
-.oc-type{margin-top:6px}
+.oc-type{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .lc-foot.lb{align-items:center}
 .lb-org{width:40px;height:40px;flex:none;border:1px solid var(--border);display:grid;place-items:center;font-weight:700;font-size:12px;text-decoration:none;color:var(--ink);background:var(--surface)}
 .lb-org.internal{background:var(--corporate);border-color:var(--corporate);color:#000}
@@ -454,6 +441,7 @@ a.lb-org:hover{background:var(--corporate-hover);border-color:var(--corporate-ho
 .ins-s{font-size:12px;line-height:16px;font-weight:700}
 .bn-av{border-radius:50%;background:var(--corporate)!important;color:#000!important}
 .bn-av.c{background:var(--n-100)!important;color:var(--n-600)!important}
+.w220{width:220px;flex:none}
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .ccard{background:var(--surface);border:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .ccard:hover{background:var(--n-50)}
@@ -604,6 +592,7 @@ input[type=radio]:checked{background:radial-gradient(circle,var(--black) 0 5px,v
 @keyframes fade{from{opacity:0}}
 .modal{background:var(--surface);width:min(560px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.25)}
 .modal.wide{width:min(760px,100%)}
+.modal.xwide{width:min(960px,100%)}
 .mh{display:flex;align-items:flex-start;gap:12px;padding:18px 20px;border-bottom:1px solid var(--border)}
 .mh h2{margin:0;font-size:18px;line-height:26px;flex:1}
 .mh .sub{margin-top:2px}
@@ -676,6 +665,96 @@ input[type=radio]:checked{background:radial-gradient(circle,var(--black) 0 5px,v
 .thumb.mthumb > img,.thumb.mthumb > svg{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;opacity:1}
 .mk-h .th{position:relative}
 .mk-h .th > img,.mk-h .th > svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.md2{grid-template-columns:minmax(0,1fr) minmax(360px,520px);align-items:start}
+.md2 .md-info{padding:4px 8px 0 0;gap:14px}
+.md-tl{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.md-tl h1{font-size:32px;line-height:38px}
+.md-loc{margin:0;font-size:16px}
+.md-kv{margin:4px 0 0;display:flex;flex-direction:column;gap:10px}
+.md-kv div{display:grid;grid-template-columns:230px minmax(0,1fr);gap:12px;align-items:baseline}
+.md-kv dt{font-weight:700;font-family:var(--font-head);font-size:15px}
+.md-kv dd{margin:0;font-size:15px}
+.md-kv small{font-size:11px}
+.md-sold{margin-top:18px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;display:flex;flex-direction:column;gap:12px}
+.md-sold-k{font-size:15px}
+.md-sold-r{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.md-seller{font-weight:700;font-size:16px;line-height:20px;color:var(--ink);text-decoration:none}
+a.md-seller:hover{text-decoration:underline}
+.md-sl{font-size:14px;color:var(--ink);margin-top:4px}
+.md-sold-r .acts{margin-left:auto}
+.md-strip{display:flex;align-items:center;gap:8px}
+.md-strip .md-thumbs{flex:1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.md-arr{border:0;background:none;font-size:20px;cursor:pointer;padding:4px 6px;color:var(--ink)}
+.md-arr[disabled]{color:var(--n-300);cursor:default}
+.md-th{aspect-ratio:1/1}
+.md-th.on{border-color:#2a8bd8}
+.md-specs{display:flex;flex-direction:column}
+.md-grp{display:flex;flex-direction:column}
+.md-grp h2{font-family:var(--font-head);font-size:24px;line-height:30px;font-weight:900;margin:22px 0 6px}
+.md-grp:first-child h2{margin-top:4px}
+.md-row{display:grid;grid-template-columns:minmax(200px,40%) minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:15px;line-height:24px}
+.md-row span:first-child{font-weight:700;font-family:var(--font-head)}
+.md-sim{margin-top:36px}
+.md-sim h2{font-family:var(--font-head);font-size:28px;line-height:34px;font-weight:900;margin:0 0 16px}
+.md-sim-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.md-sim-g{grid-template-columns:1fr}.md2{grid-template-columns:1fr}.md-kv div{grid-template-columns:160px 1fr}}
+.md-sim-c{border:1px solid var(--border);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;background:var(--surface)}
+.md-sim-c:hover{border-color:var(--corporate-hover)}
+.md-sim-i{position:relative;aspect-ratio:4/3;overflow:hidden;background:#eef2f4;display:block}
+.md-sim-i > img,.md-sim-i > svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.abtn{text-decoration:none;position:relative;width:36px;height:36px;display:inline-grid;place-items:center;border:1px solid var(--border);background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.abtn:hover:not([disabled]){background:var(--corporate-hover);border-color:var(--corporate-hover);color:#000}
+.abtn.danger{color:var(--error)}
+.abtn.danger:hover{background:var(--error);border-color:var(--error);color:#fff}
+.abtn[disabled]{color:var(--n-400);background:var(--n-50);cursor:default}
+.abtn[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#000;color:#fff;font-size:12px;line-height:16px;font-weight:500;padding:5px 8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .12s;z-index:30;text-transform:none;letter-spacing:0}
+.abtn[data-tip]::before{content:"";position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#000;opacity:0;transition:opacity .12s;pointer-events:none;z-index:30}
+.abtn[data-tip]:hover::after,.abtn[data-tip]:hover::before,.abtn[data-tip]:focus-visible::after,.abtn[data-tip]:focus-visible::before{opacity:1}
+.lc-badges{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ext-ind{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:16px;padding:3px 8px;border:1px solid var(--slate);color:var(--slate);background:var(--surface);cursor:pointer;font-weight:700}
+.ext-ind:hover{background:var(--corporate-hover);border-color:var(--corporate-hover);color:#000}
+.ext-ind.none{border-color:var(--n-300);color:var(--n-500);font-weight:500}
+.ext-h{display:flex;gap:12px;align-items:center;margin-bottom:4px}
+.ibtn.tipr{position:relative}
+.ibtn.tipr[data-tip]::after{content:attr(data-tip);position:absolute;right:calc(100% + 8px);top:50%;transform:translateY(-50%);background:#000;color:#fff;font-size:12px;line-height:16px;padding:5px 8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .12s;z-index:30}
+.ibtn.tipr:hover::after,.ibtn.tipr:focus-visible::after{opacity:1}
+.an-modal{background:var(--surface);width:min(1040px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.an-h{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding:0 12px 0 8px}
+.an-tabs{display:flex}
+.an-tabs button{display:inline-flex;align-items:center;gap:8px;border:0;background:none;padding:16px 14px 12px;border-bottom:3px solid transparent;font-weight:700;font-size:13px;color:var(--muted);cursor:pointer}
+.an-tabs button.on{color:var(--ink);border-bottom-color:var(--corporate)}
+.an-tabs button:not(.on):hover{color:var(--ink);background:var(--n-50)}
+.an-b{padding:18px 20px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
+.an-top{display:flex;justify-content:space-between;align-items:flex-start}
+.an-top h2{margin:0;font-size:18px}
+.an-range{display:flex;flex-direction:column;align-items:flex-end;font-size:12px;color:var(--muted)}
+.an-range b{color:var(--ink);font-size:13px}
+.an-head{margin:0;text-align:center;font-family:var(--font-head);font-weight:900;font-size:22px;line-height:28px}
+.an-grid{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(240px,1fr);gap:16px}
+.an-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.an-grid,.an-3{grid-template-columns:1fr}}
+.an-card{border:1px solid var(--border);padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.an-card h3{margin:0;font-size:13px;font-weight:700}
+.an-machine{padding:0}
+.an-img{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:#eef2f4}
+.an-img>img,.an-img>svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.an-plot{position:relative}
+.an-svg{width:100%;height:220px;display:block;overflow:visible}
+.an-svg text{font-size:10px;fill:#6b7278}
+.an-tip{position:absolute;background:#fff;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,.12);padding:8px 12px;display:flex;flex-direction:column;pointer-events:none;min-width:90px}
+.an-tip b{font-size:22px;line-height:26px}
+.an-tip span{font-size:11px;color:var(--muted)}
+.an-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.an-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.an-tile{border:1px solid var(--border);padding:14px 16px;display:flex;flex-direction:column;gap:4px;color:var(--muted)}
+.an-tile b{font-size:26px;line-height:30px;color:var(--ink);font-family:var(--font-head);font-weight:900}
+.an-tile span{font-size:12px}
+.an-bars{display:flex;flex-direction:column;gap:10px}
+.an-bar{display:grid;grid-template-columns:minmax(110px,1.4fr) minmax(0,1fr) 30px;gap:10px;align-items:center;font-size:13px}
+.an-bar b{text-align:right}
+.an-track{height:10px;background:var(--n-50);display:block}
+.an-track i{display:block;height:100%}
+.si-btn{display:none!important}
 </style>
 </head>
 <body>
@@ -869,7 +948,7 @@ function SEED() {
     { id:'s2', companyId:'bauer', by:'anna', toCompany:'nordicc', machine:'Liebherr L 566', channel:'Platform', date:'2026-09-09', status:'New' },
   ];
   const feed = [
-    { date:'2026-09-20', title:'VargaBau Kft', text:'Added → Connected · joined the platform', join:true, companyId:'varga' },
+    { date:'2026-09-20', title:'VargaBau Kft', text:'Lead → Connected · joined the platform', join:true, companyId:'varga' },
     { date:'2026-09-08', title:'Nordic Bygg AS', text:'Company added manually', companyId:'nordicb' },
     { date:'2026-09-02', title:'Rossi Costruzioni', text:'Added automatically when an enquiry was logged', companyId:'rossi' },
     { date:'2026-09-02', title:'Elena Rossi', text:'Contact added manually · Rossi Costruzioni', companyId:'rossi' },
@@ -1069,8 +1148,8 @@ const lbadge = s => `<span class="badge" style="background:${LSTATUS[s]};color:$
 const ORG_TYPE = { internal: 'Internal', external: 'External' };
 const typePill = t => `<span class="tpill ${t}">${ORG_TYPE[t] || 'External'}</span>`;
 const stateBadge = (st, lg) => lg
-  ? `<span class="statepill ${st}"><i aria-hidden="true"></i>${st === 'connected' ? 'Connected' : 'Added'}</span>`
-  : `<span class="state" style="background:${st === 'connected' ? 'var(--success)' : 'var(--n-100)'};color:${st === 'connected' ? '#fff' : 'var(--black)'}">${st === 'connected' ? 'Connected' : 'Added'}</span>`;
+  ? `<span class="statepill ${st}"><i aria-hidden="true"></i>${st === 'connected' ? 'Connected' : 'Lead'}</span>`
+  : `<span class="state" style="background:${st === 'connected' ? 'var(--success)' : 'var(--n-100)'};color:${st === 'connected' ? '#fff' : 'var(--black)'}">${st === 'connected' ? 'Connected' : 'Lead'}</span>`;
 const thumb = () => `<span class="thumb" aria-hidden="true"><svg viewBox="0 0 40 24" fill="none" stroke="#6b6b6b" stroke-width="1.5"><path d="M4 18h24v-6H14l-4-6H6v12M28 12l8-8M30 18h6"/><circle cx="9" cy="20" r="2"/><circle cx="23" cy="20" r="2"/></svg></span>`;
 /* Donut (pie) chart with a labelled legend — values are always written out, never colour-only */
 function donut(rows, { action, unit = 'enquiries' } = {}) {
@@ -1346,7 +1425,7 @@ function pageHead(subtitle, isList, orgId, listFilters = '') {
     ${can('addCompany') ? '<button class="btn pri" data-act="addCompany">Add company</button>' : ''}
   </div>
   <div class="viewbar">
-    <div class="seg" role="tablist">${can('orgEnquiries') ? `<a href="#/organizations" class="${isList ? '' : 'on'}" role="tab" aria-selected="${!isList}">Dashboard</a>` : ''}<a href="#/organizations/list" class="${isList ? 'on' : ''}" role="tab" aria-selected="${isList}">My Organizations</a></div>
+    <div class="seg" role="tablist">${can('orgEnquiries') ? `<a href="#/organizations" class="${isList ? '' : 'on'}" role="tab" aria-selected="${!isList}">Dashboard</a>` : ''}<a href="#/organizations/list" class="${isList ? 'on' : ''}" role="tab" aria-selected="${isList}">List</a></div>
     ${isList ? `<div class="vfilters">${listFilters}</div>` : `<div class="vfilters">${partnerFilter}${orgFilter}<span class="select"><button class="btn sel" data-act="rangeMenu" aria-label="Date range: ${esc(db.ui.range)}">${esc(db.ui.range)}</button></span></div>`}
   </div>`;
 }
@@ -1362,19 +1441,20 @@ route('/organizations', (_, q) => {
   const T = totals();
   const ranked = V.companies.map(c => ({ c, s: stats(c.id) }));
   const top = [...ranked].sort((a, b) => b.s.received - a.s.received || alpha(a.c, b.c)).slice(0, 5);
-  const open = V.companies.map(c => openRow(c.id, c.name, recvOf(c.id), c.state === 'connected' ? 'Connected' : 'Added')).filter(r => r.total).sort((a, b) => b.total - a.total || a.label.localeCompare(b.label)).slice(0, 5);
+  const open = V.companies.map(c => openRow(c.id, c.name, recvOf(c.id), c.state === 'connected' ? 'Connected' : 'Lead')).filter(r => r.total).sort((a, b) => b.total - a.total || a.label.localeCompare(b.label)).slice(0, 5);
   const feed = [...V.feed].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
   const D = dealStats(V.received);
-  const pipeByOrg = V.companies.map(c => ({ id: c.id, label: c.name, sub: c.state === 'connected' ? 'Connected' : 'Added', value: dealStats(recvOf(c.id)).openValue }))
+  const pipeByOrg = V.companies.map(c => ({ id: c.id, label: c.name, sub: c.state === 'connected' ? 'Connected' : 'Lead', value: dealStats(recvOf(c.id)).openValue }))
     .filter(x => x.value).sort((a, b) => b.value - a.value).slice(0, 5);
   return { title: 'Organizations — Dashboard', html: `
     ${pageHead('Everyone you do business with — on the platform or not.', false, '')}
     <div class="kpis">
-      <button class="kpi" data-act="kpi" data-f=""><b>${T.companies}</b><strong>Organizations</strong><span>${T.connected} connected · ${T.added} added</span></button>
+      <button class="kpi" data-act="kpi" data-f=""><b>${T.companies}</b><strong>Organizations</strong><span>${T.connected} connected · ${plural(T.added, 'lead')}</span></button>
       <button class="kpi" data-act="kpi" data-f=""><b>${T.received}</b><strong>Enquiries received</strong><span>across all organizations</span></button>
       <button class="kpi" data-act="kpi" data-f="In Progress"><b>${T.by['In Progress']}</b><strong>In progress</strong><span>needs follow-up</span></button>
       <button class="kpi" data-act="kpi" data-f="Closed"><b>${T.by['Closed']}</b><strong>Closed</strong><span>${D.won} won · ${D.closedOther} lost or dropped</span></button>
     </div>
+    ${can('dealValue') ? valueTiles(D, 'kpi') : dealLocked()}
     <div class="grid2">
       <section class="card panel"><div class="ph"><h2>Enquiry status across all organizations</h2>${chartToggle('status')}</div>
         ${statusChart('status', T.by, 'kpi')}
@@ -1382,16 +1462,14 @@ route('/organizations', (_, q) => {
       ${topCard(V.received, 'top')}
       <section class="card panel"><div class="ph"><h2>Open enquiries by organization</h2>${openToggle('open')}</div>
         ${open.length ? openChart('open', open, 'dashOrg') + `<p class="foot">Open = New, In Progress or Quoted. Top ${open.length} by open enquiries.</p>` : ES('chat', 'No open enquiries', 'Nothing is waiting on a reply right now.', '', { compact: true })}</section>
-      <section class="card panel"><h2>Recently added and recently joined</h2>${feedHtml(feed)}</section>
+      <section class="card panel"><h2>New leads and recently joined</h2>${feedHtml(feed)}</section>
     </div>
-    <h2 class="sec-t">Deal value</h2>
-    ${can('dealValue') ? `${valueTiles(D, 'kpi')}
-    <div class="grid2">
+    ${can('dealValue') ? `<div class="grid2">
       <section class="card panel"><h2>Enquiry funnel</h2>${funnel(D)}</section>
       <section class="card panel"><h2>Open pipeline by organization</h2>
         ${pipeByOrg.length ? bars(pipeByOrg, { color: 'var(--steel)', action: 'dashOrg', format: money }) : ES('chart', 'No open deals', 'Deal values appear once enquiries are in play.', '', { compact: true })}
         <p class="foot">Sum of deal values on New, In Progress and Quoted enquiries.</p></section>
-    </div>` : dealLocked()}` };
+    </div>` : ''}` };
 });
 
 /* Same dashboard, scoped to one organization (?org=<id>) */
@@ -1415,11 +1493,12 @@ function orgDashboard(c) {
       <a class="link" href="#/company/${c.id}/overview" style="margin-left:auto">Open profile  →</a>
       <button class="btn sm ghost" data-act="dashOrg" data-id="">Show all organizations</button></div>
     <div class="kpis">
-      <button class="kpi" data-act="tab" data-id="${c.id}" data-tab="people"><b>${s.people}</b><strong>Employees</strong><span>${peopleSub}</span></button>
+      <button class="kpi" data-act="tab" data-id="${c.id}" data-tab="people"><b>${s.people}</b><strong>Contacts</strong><span>${peopleSub}</span></button>
       <button class="kpi" data-act="tab" data-id="${c.id}" data-tab="enquiries"><b>${s.received}</b><strong>Enquiries received</strong><span>${added ? 'all logged manually' : `${s.onListings} on listings${s.companyLevel ? ` · ${s.companyLevel} company-level` : ''}`}</span></button>
       <button class="kpi" data-act="tab" data-id="${c.id}" data-tab="enquiries"><b>${s.inProgress}</b><strong>In progress</strong><span>needs follow-up</span></button>
       <button class="kpi" data-act="tab" data-id="${c.id}" data-tab="enquiries"><b>${s.by['Closed']}</b><strong>Closed</strong><span>${D.won} won · ${D.closedOther} lost or dropped</span></button>
     </div>
+    ${can('dealValue') ? valueTiles(D, '') : dealLocked()}
     <div class="grid2">
       <section class="card panel"><div class="ph"><h2>Enquiry status at ${esc(c.name)}</h2>${chartToggle('status')}</div>
         ${statusChart('status', s.by, 'tab' + c.id)}
@@ -1429,14 +1508,12 @@ function orgDashboard(c) {
         ${openBy.length ? openChart('open', openBy, 'tab' + c.id) + '<p class="foot">Open = New, In Progress or Quoted.</p>' : ES('chat', 'No open enquiries', 'Nothing is waiting on a reply right now.', '', { compact: true })}</section>
       <section class="card panel"><h2>Recent activity</h2>${feedHtml(feed)}</section>
     </div>
-    <h2 class="sec-t">Deal value</h2>
-    ${can('dealValue') ? `${valueTiles(D, '')}
-    <div class="grid2">
+    ${can('dealValue') ? `<div class="grid2">
       <section class="card panel"><h2>Enquiry funnel</h2>${funnel(D)}</section>
       <section class="card panel"><h2>Open pipeline by ${added ? 'machine' : 'listing'}</h2>
         ${pipeBy.length ? bars(pipeBy, { color: 'var(--steel)', action: 'tab' + c.id, format: money }) : ES('chart', 'No open deals', 'Deal values appear once enquiries are in play.', '', { compact: true })}
         <p class="foot">Sum of deal values on New, In Progress and Quoted enquiries.</p></section>
-    </div>` : dealLocked()}` };
+    </div>` : ''}` };
 }
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Organizations — Dashboard', figma:'1332:9967', href:'#/organizations' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Dashboard — filtered to one organization', figma:'new', href:'#/organizations?org=bauer' });
@@ -1465,10 +1542,10 @@ function orgCard(c) {
   return `<article class="ocard" aria-label="${esc(c.name)}">
     <a class="oc-top" href="#/company/${c.id}/overview">
       <span class="oc-logo${added ? ' ph' : ''}">${added ? BUILDING : esc(initials(c.name))}</span>
-      <span class="oc-id"><span class="oc-name ellip">${esc(c.name)}</span><span class="oc-loc">${PIN}<span class="ellip">${esc(c.city)}, ${esc(c.country)}</span></span><span class="oc-type">${typePill(c.orgType)}</span></span>
+      <span class="oc-id"><span class="oc-name ellip">${esc(c.name)}</span><span class="oc-loc">${PIN}<span class="ellip">${esc(c.city)}, ${esc(c.country)}</span></span><span class="oc-type">${stateBadge(c.state)}${typePill(c.orgType)}</span></span>
       <span class="oc-go" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></span>
     </a>
-    <div class="oc-stats" style="grid-template-columns:repeat(${can('orgEnquiries') ? 3 : 2},minmax(0,1fr))">${stat(s.people, added ? 'Contacts' : 'Employees')}${stat(s.listings, 'Listings')}${can('orgEnquiries') ? stat(s.received + s.sent, 'Enquiries') : ''}</div>
+    <div class="oc-stats" style="grid-template-columns:repeat(${can('orgEnquiries') ? 3 : 2},minmax(0,1fr))">${stat(s.people, 'Contacts')}${stat(s.listings, 'Listings')}${can('orgEnquiries') ? stat(s.received + s.sent, 'Enquiries') : ''}</div>
     <div class="oc-foot">
       ${can('removeOrg') ? `<button class="oc-del" data-act="removeOrg" data-id="${c.id}" aria-label="Remove ${esc(c.name)}" title="Remove from My Organizations"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button>` : '<span></span>'}
       <span class="oc-avs" aria-label="${plural(ppl.length, 'person', 'people')}">${shown.map(p => `<span class="oc-av${p.type === 'contact' ? ' c' : ''}" title="${esc(p.name)}">${initials(p.name)}</span>`).join('')}${more > 0 ? `<span class="oc-more">${more}</span>` : ''}</span>
@@ -1532,7 +1609,7 @@ function listRows() {
   return own.map(partnerRow).join('') + rows.map(c => {
     const s = stats(c.id);
     const hit = q && !c.name.toLowerCase().includes(q) ? peopleOf(c.id).find(p => p.name.toLowerCase().includes(q)) : null;
-    const pWord = c.state === 'added' ? (s.people === 1 ? 'contact' : 'contacts') : (s.employees === 1 ? 'employee' : 'employees');
+    const pWord = s.people === 1 ? 'contact' : 'contacts';
     const pNum = s.people;   // same count as the card and the profile's Employees tab
     return `<div class="tr click" data-href="#/company/${c.id}/overview" tabindex="0" role="link" aria-label="${esc(c.name)}">
       <div class="c-fl" style="display:flex;gap:12px;align-items:center">
@@ -1558,10 +1635,10 @@ route('/organizations/list', (_, query) => {
   const countries = [...new Set(V.companies.map(c => c.country))].sort();
   const sel = (key, all, opts) => `<span class="select"><select data-filter="${key}" aria-label="${all}"><option value="">${all}</option>${opts.map(([v, l]) => `<option value="${esc(v)}" ${ui.list[key] === v ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></span>`;
   return { title: 'Organizations — List', html: `
-    ${pageHead(`${T.companies} companies in your ecosystem — ${T.connected} connected on the platform, ${T.added} added by your team.`, true, '', `
+    ${pageHead(`${T.companies} companies in your ecosystem — ${T.connected} connected on the platform, ${plural(T.added, 'lead')} added by your team.`, true, '', `
       <span id="fcount" class="muted"></span>
       <input class="search" type="search" placeholder="Search company or person…" value="${esc(ui.list.q)}" data-filter="q" aria-label="Search company or person" style="width:260px">
-      ${sel('state', 'All states', [['connected', 'Connected'], ['added', 'Added']])}
+      ${sel('state', 'All states', [['connected', 'Connected'], ['added', 'Lead']])}
       ${sel('type', 'All types', [['internal', 'Internal'], ['external', 'External']])}
       ${sel('country', 'All countries', countries.map(c => [c, c]))}
       <div class="lt" role="group" aria-label="Layout" style="margin:0">
@@ -1569,7 +1646,7 @@ route('/organizations/list', (_, query) => {
         <button class="lt-btn${ui.orgLayout === 'table' ? ' on' : ''}" data-act="orgLayout" data-v="table" aria-pressed="${ui.orgLayout === 'table'}" aria-label="List view" title="List view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       </div>`)}
     ${ui.orgLayout === 'table' ? `<div class="tw">
-      <div class="tr th"><div class="c-fl">Company</div><div class="w130">State</div><div class="w110">Type</div>${can('seeAllPartners') ? '<div class="w150">Sales partner</div>' : ''}<div class="w90">Employees</div><div class="w90">Listings</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div><div class="w110">In progress</div>' : ''}<div class="w130">Last activity</div>${can('removeOrg') ? '<div class="w90" style="text-align:right">Action</div>' : ''}</div>
+      <div class="tr th"><div class="c-fl">Company</div><div class="w130">State</div><div class="w110">Type</div>${can('seeAllPartners') ? '<div class="w150">Sales partner</div>' : ''}<div class="w90">Contacts</div><div class="w90">Listings</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div><div class="w110">In progress</div>' : ''}<div class="w130">Last activity</div>${can('removeOrg') ? '<div class="w90" style="text-align:right">Action</div>' : ''}</div>
       <div id="list-body">${listRows()}</div>
     </div>` : `<div id="list-body" class="org-grid">${listRows()}</div>`}`,
     after: updateCount };
@@ -1585,8 +1662,7 @@ screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Org
    ------------------------------------------------------------------ */
 const TABS = [
   { k:'overview', t:'Overview' },
-  { k:'people', t:'Employees', n: s => s.people },
-  { k:'connections', t:'Contacts', n: s => s.connections, addedOff:true },
+  { k:'people', t:'Contacts', n: s => s.people },
   { k:'listings', t:'Listings', n: s => s.listings ?? 0, addedOff:true },
   { k:'enquiries', t:'Enquiries', n: s => s.received + s.sent },
   { k:'newsfeed', t:'Newsfeed', addedOff:true },
@@ -1630,7 +1706,7 @@ function companyHeader(c, s) {
       </div>
     </div>
     <div class="bstats">
-      ${st(bnIcon('networks'), s.people, added ? 'Contacts' : 'Employees', 'people')}
+      ${st(bnIcon('networks'), s.people, 'Contacts', 'people')}
       ${st(bnIcon('listings'), s.listings, 'Listings', 'listings')}
       ${can('orgEnquiries') ? st(BN_ICON.chat, s.received + s.sent, 'Enquiries', 'enquiries') : ''}
       ${st(BN_ICON.cal, `<small>${fmt(c.last)}</small>`, 'Last activity', '')}
@@ -1658,7 +1734,7 @@ function tabOverview(c, s) {
         ${field('Industry', esc(c.industry))}${field('Location', `${esc(c.city)}, ${esc(c.country)}`)}
         ${field('Email', c.email ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : '—')}
         ${field('Phone', c.phone ? `<a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a>` : '—')}
-        ${field('Added', `${fmt(c.added)} · ${esc(c.addedHow)}`)}
+        ${field('Lead since', `${fmt(c.added)} · ${esc(c.addedHow)}`)}
         ${field('Added by', `${esc(c.addedBy)} · private to your company`)}
       </section>${can('orgEnquiries') ? perfCard(c, s) : ''}
     </div>`;
@@ -1666,19 +1742,31 @@ function tabOverview(c, s) {
     <section class="card about"><h2>About</h2>
       ${field('Industry', esc(c.industry))}${field('Type', typePill(c.orgType))}${field('Location', `${esc(c.city)}, ${esc(c.country)}`)}
       ${field('Website', esc(c.website))}
-      ${field('Connected since', `${fmt(c.since)} · ${c.joinedFromAdded ? 'joined from an added record' : 'on the platform'}`)}
+      ${field('Connected since', `${fmt(c.since)} · ${c.joinedFromAdded ? 'joined from a lead' : 'on the platform'}`)}
       ${field('Owner', esc(c.owner))}
     </section>${can('orgEnquiries') ? perfCard(c, s) : ''}</div>`;
 }
 
+/* Icon-only action with an accessible name and a hover/focus tooltip */
+const ACT_ICON = {
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+  userplus: '<circle cx="9" cy="8" r="4"/><path d="M2 21c.9-4 3.8-6.5 7-6.5s6.1 2.5 7 6.5M19 8v6M16 11h6"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  bin: '<path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+};
+const iconLink = (icon, label, href) => `<a class="abtn" href="${href}" aria-label="${esc(label)}" data-tip="${esc(label)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ACT_ICON[icon]}</svg></a>`;
+const iconBtn = (icon, label, attrs = '', danger = false) => `<button class="abtn${danger ? ' danger' : ''}" ${attrs} aria-label="${esc(label)}" data-tip="${esc(label)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ACT_ICON[icon]}</svg></button>`;
 function tabPeople(c) {
   const ppl = peopleOf(c.id).sort((a, b) => (a.type === b.type ? 0 : a.type === 'employee' ? -1 : 1));
   const added = c.state === 'added';
   const action = p => {
-    if (p.type === 'contact') return `<button class="btn sm" data-act="callEmail" data-id="${p.id}">Call · Email</button>`;
-    if (p.conn === 'connected') return `<button class="btn sm" data-act="message" data-id="${c.id}" data-person="${p.id}">Message</button>`;
-    if (p.conn === 'pending') return `<button class="btn sm" disabled>Request pending</button>`;
-    return `<button class="btn sm" data-act="connectPerson" data-id="${p.id}">Connect</button>`;
+    if (p.type === 'contact') return iconBtn('phone', 'Call · Email', `data-act="callEmail" data-id="${p.id}"`);
+    if (p.conn === 'connected') return iconBtn('chat', 'Send message', `data-act="message" data-id="${c.id}" data-person="${p.id}"`);
+    if (p.conn === 'pending') return iconBtn('clock', 'Request pending', 'disabled');
+    return iconBtn('userplus', 'Connect', `data-act="connectPerson" data-id="${p.id}"`);
   };
   const firstContact = ppl.find(p => p.type === 'contact');
   const rows = ppl.map(p => {
@@ -1686,15 +1774,15 @@ function tabPeople(c) {
     return `<div class="tr">
       <div class="c-fl" style="display:flex;gap:12px;align-items:center"><span class="av${p.type === 'contact' ? ' c' : ''}">${initials(p.name)}</span>
         <span class="stack"><a class="nm link" href="#/person/${p.id}">${esc(p.name)}</a><span class="two" style="font-size:12px;line-height:16px">${esc(p.role || '—')} · ${p.type === 'contact' ? `added manually${p.phone ? ' · ' + esc(p.phone) : p.email ? ' · ' + esc(p.email) : ''}` : esc(p.email)}</span></span></div>
-      <div class="w150 stack">${p.type === 'employee' ? '<span><span class="tag emp">Employee</span></span><span class="two">SSO verified</span>' : '<span><span class="tag">Contact</span></span><span class="two">Unverified · editable</span>'}</div>
+      <div class="w150 stack">${p.type === 'contact' ? '<span><span class="tag">Lead</span></span><span class="two">Unverified · editable</span>' : p.conn === 'connected' ? '<span><span class="tag emp">Connected</span></span><span class="two">SSO verified</span>' : p.conn === 'pending' ? '<span><span class="tag">Request pending</span></span><span class="two">SSO verified</span>' : '<span><span class="tag">Not connected</span></span><span class="two">SSO verified</span>'}</div>
       ${can('orgEnquiries') ? `<div class="w120 num" ${n ? '' : 'style="color:var(--muted)"'}>${n}</div>` : ''}
       <div class="w140" ${p.lastContact ? '' : 'style="color:var(--muted)"'}>${fmt(p.lastContact)}</div>
-      <div class="w190" style="display:flex;gap:6px">${action(p)}${p.type === 'contact' ? `<button class="btn sm ghost" data-act="editContact" data-id="${p.id}" aria-label="Edit ${esc(p.name)}">Edit</button>` : ''}</div>
+      <div class="w150" style="display:flex;gap:6px;justify-content:flex-end;align-items:center">${action(p)}${p.type !== 'contact' && p.conn === 'connected' ? iconBtn('bin', 'Remove contact', `data-act="removeConn" data-id="${p.id}"`, true) : ''}</div>
     </div>`; }).join('');
-  return `<div class="sh"><div class="t"><h2>Employees (${ppl.length})</h2><p class="sub">${added ? 'Contacts your team has added. They are unverified until this company joins the platform.' : 'Platform employees and manually added contacts, in one list. Employee details come from SSO and are read-only.'}</p></div>
+  return `<div class="sh"><div class="t"><h2>Contacts (${ppl.length})</h2><p class="sub">${added ? 'Contacts your team has added. They are unverified until this company joins the platform.' : 'Everyone at this company — connected, not connected and leads your team added — in one list. Employee details come from SSO and are read-only.'}</p></div>
     <button class="btn sm" data-act="addContact" data-id="${c.id}">Add contact</button></div>
-    <div class="tw"><div class="tr th${can('orgEnquiries') ? '' : ' noenq'}"><div class="c-fl">Person</div><div class="w150">Type</div>${can('orgEnquiries') ? '<div class="w120">Enquiries</div>' : ''}<div class="w140">Last contact</div><div class="w190">Action</div></div>
-    ${rows || ES('people', added ? 'No contacts yet' : 'No employees yet', added ? 'Add the people you deal with at this company.' : 'Employees appear here when they sign in through Liebherr SSO.', `<button class="btn" data-act="addContact" data-id="${c.id}">Add contact</button>`, { bare: true })}</div>`;
+    <div class="tw"><div class="tr th${can('orgEnquiries') ? '' : ' noenq'}"><div class="c-fl">Person</div><div class="w150">Status</div>${can('orgEnquiries') ? '<div class="w120">Enquiries</div>' : ''}<div class="w140">Last contact</div><div class="w150" style="text-align:right">Action</div></div>
+    ${rows || ES('people', 'No contacts yet', added ? 'Add the people you deal with at this company.' : 'Employees appear here when they sign in through Liebherr SSO.', `<button class="btn" data-act="addContact" data-id="${c.id}">Add contact</button>`, { bare: true })}</div>`;
 }
 
 function tabConnections(c) {
@@ -1723,18 +1811,18 @@ function tabListings(c, s, q) {
       <div class="c-fl" style="display:flex;gap:12px;align-items:center;min-width:320px"><span class="thumb mthumb" style="width:64px;height:48px">${machineImg(l.model, machineKind(l.model))}</span>
         <span class="stack"><b style="font-size:15px;line-height:22px">${esc(l.model)}</b><span class="two" style="font-size:12px;line-height:16px">${l.year} · ${esc(l.sn)} · Listed by ${who ? `<a class="link" style="font-weight:500;text-decoration:underline" href="#/person/${who.id}">${esc(who.name)}</a>` : 'unknown'}</span></span>
       </div>
-      ${can('orgEnquiries') ? `<div class="w110 num" ${n ? '' : 'style="color:var(--muted)"'}>${n}</div>` : ''}
+      ${can('orgEnquiries') ? `<div class="w110 num">${n || ''}</div>` : ''}
       <div class="w120"><b style="font-size:15px">${eur(l.price)}</b></div>
       <div class="w120">${lbadge(l.status)}</div>
-      <div class="w260 acts-cell">
-        ${can('orgEnquiries') ? `<button class="btn sm" data-act="mkOpen" data-id="${key}" ${n ? '' : 'disabled title="No enquiries you can view"'}>View enquiries</button>` : ''}
-        <a class="btn sm pri" href="#/machine/${key}">View details</a>
+      <div class="w150 acts-cell">
+        ${can('orgEnquiries') && n ? iconBtn('chat', 'View enquiries', `data-act="mkOpen" data-id="${key}"`) : ''}
+        ${iconLink('eye', 'View details', `#/machine/${key}`)}
       </div>
     </div>`;
   }).join('');
   const note = !can('orgEnquiries') ? '' : orgSide(c) ? '' : `Only enquiries your team sent about these listings are shown. Enquiries ${esc(c.name)} received from other companies are private to them.`;
   return `<div class="sh"><div class="t"><h2>Marketplace listings (${L.length})</h2><p class="sub">Machines listed by ${esc(c.name.split(' ')[0])}'s employees.</p></div></div>
-    ${rows ? `<div class="tw"><div class="tr th"><div class="c-fl" style="min-width:320px">Machine</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w260" style="text-align:right">Actions</div></div>${rows}</div>` : ES('machine', 'No listings yet', `${esc(c.name)} hasn\u2019t listed any machines.`)}
+    ${rows ? `<div class="tw"><div class="tr th"><div class="c-fl" style="min-width:320px">Machine</div>${can('orgEnquiries') ? '<div class="w110">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w150" style="text-align:right">Actions</div></div>${rows}</div>` : ES('machine', 'No listings yet', `${esc(c.name)} hasn\u2019t listed any machines.`)}
     ${note ? `<div class="recon">${note}</div>` : ''}`;
 }
 function enqRow(e) {
@@ -1825,9 +1913,10 @@ route('/company/:id/:tab?', (p, q) => {
   const c = co(p.id);
   if (c && !canSeeCompany(c, true)) return { title: 'No access', html: `<div class="card noaccess"><b style="font-size:16px">You don't have access to ${esc(c.name)}</b><span class="muted">${ME.role === 'coworker' ? 'It isn\'t assigned to you. Ask your sales partner admin to assign you an enquiry there.' : 'It belongs to another sales partner.'}</span><a class="btn" href="#/organizations/list">Back to Organizations</a></div>` };
   if (c && ME.role === 'super' && db.ui.partnerFilter && c.partner !== db.ui.partnerFilter) { db.ui.partnerFilter = ''; }
-  if (!c) return { title: 'Not found', html: ES('org', 'Organization not found', 'It isn\u2019t in your organizations, or it was removed.', '<a class="btn" href="#/organizations/list">Back to My Organizations</a>') };
+  if (!c) return { title: 'Not found', html: ES('org', 'Organization not found', 'It isn\u2019t in your organizations, or it was removed.', '<a class="btn" href="#/organizations/list">Back to Organizations</a>') };
   let tab = p.tab || 'overview';
   if (tab === 'sent') { tab = 'enquiries'; q.seg = 'sent'; }
+  if (tab === 'connections') tab = 'people';   // Contacts tab merged into the one list
   if (tab === 'enquiries' && !can('orgEnquiries')) tab = 'overview';   // old links to the Sent tab
   const s = stats(c.id);
   if (c.state === 'added' && (tab === 'connections' || tab === 'listings' || tab === 'newsfeed')) tab = 'overview';
@@ -1849,10 +1938,10 @@ route('/company/:id/:tab?', (p, q) => {
 });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Newsfeed', figma:'new', href:'#/company/bauer/newsfeed' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Overview (Connected)', figma:'1332:10321', href:'#/company/bauer/overview' });
-screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Employees', figma:'1332:10498', href:'#/company/bauer/people' });
+screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Contacts', figma:'1332:10498', href:'#/company/bauer/people' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Listings (expanded)', figma:'1332:10675', href:'#/company/bauer/listings?open=l1' });
 screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Enquiries (Received / Sent)', figma:'1332:10852', href:'#/company/bauer/enquiries' });
-screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Added (not on platform)', figma:'1332:11029', href:'#/company/travaux/overview' });
+screen({ group:'Section 5 — Organizations (was Advanced Networks)', title:'Company profile — Lead (not on platform)', figma:'1332:11029', href:'#/company/travaux/overview' });
 screen({ group:'Not designed yet — placeholders', title:'Company — Contacts tab', figma:'—', href:'#/company/bauer/connections' });
 screen({ group:'Not designed yet — placeholders', title:'Company — Enquiries › Sent', figma:'Section 4 layout', href:'#/company/bauer/enquiries?seg=sent' });
 screen({ group:'Roles — view as', title:'Super Admin · Henning Bach', figma:'all partners', act:'setUser', id:'henning' });
@@ -1927,7 +2016,7 @@ const ACTIONS = {
     openModal({ title: `${esc(c.name)} — platform profile`, sub: 'Their public profile on used.liebherr.com, as other sales partners see it.',
       body: `${field('Industry', esc(c.industry))}${field('Location', `${esc(c.city)}, ${esc(c.country)}`)}${field('Website', esc(c.website || '—'))}
         ${field('On the platform since', fmt(c.since))}${field('Published listings', String(s.listings ?? 0))}
-        <div class="hr"></div><b>Employees on the platform</b>
+        <div class="hr"></div><b>People on the platform</b>
         ${emp.map(p => `<div class="fld"><span class="k">${esc(p.role || '—')}</span><span class="v">${esc(p.name)}${p.conn === 'connected' ? ' · <span class="muted">connected with you</span>' : ''}</span></div>`).join('') || '<p class="muted" style="margin:0">None listed.</p>'}`,
       foot: `<button class="btn" data-act="closeModal">Close</button><button class="btn pri" data-act="viewProfileListings" data-id="${c.id}">See their listings</button>` });
   },
@@ -1935,7 +2024,7 @@ const ACTIONS = {
   removeConn: el => {
     const p = person(el.dataset.id), c = co(p.companyId);
     openModal({ title: `Remove ${esc(p.name)} from your contacts?`, sub: `You'll no longer be connected with them at ${esc(c.name)}.`,
-      body: `<p style="margin:0">Their enquiries and activity history stay on record. You can send a new connection request later from the Employees tab.</p>`,
+      body: `<p style="margin:0">Their enquiries and activity history stay on record. You can send a new connection request later from the Contacts tab.</p>`,
       foot: `<button class="btn" data-act="closeModal">Cancel</button><button class="btn danger" data-act="removeConnOk" data-id="${p.id}">Remove contact</button>` });
   },
   removeConnOk: el => { const p = person(el.dataset.id); p.conn = 'none'; save(); closeModal(); render(); toast(`${esc(p.name)} removed from your contacts`); },
@@ -1983,7 +2072,7 @@ const ACTIONS = {
       foot: `<button class="btn" data-act="closeModal">Cancel</button><button class="btn pri" data-act="saveCompany">Add company</button>`,
       onMount: m => m.querySelector('[name=name]').addEventListener('input', e => {
         const v = e.target.value.trim().toLowerCase(), hit = v.length > 2 && V.companies.find(c => c.name.toLowerCase().includes(v) || v.includes(c.name.toLowerCase().split(' ')[0]));
-        m.querySelector('#dupe').innerHTML = hit ? `<div class="match">Looks like <b>${esc(hit.name)}</b> is already in your organizations (${hit.state === 'connected' ? 'Connected' : 'Added'}). <button class="link" data-act="openCompanyClose" data-id="${hit.id}">Open it instead</button></div>` : '';
+        m.querySelector('#dupe').innerHTML = hit ? `<div class="match">Looks like <b>${esc(hit.name)}</b> is already in your organizations (${hit.state === 'connected' ? 'Connected' : 'Lead'}). <button class="link" data-act="openCompanyClose" data-id="${hit.id}">Open it instead</button></div>` : '';
       }) });
   },
   openCompanyClose: el => { closeModal(); go(`#/company/${el.dataset.id}/overview`); },
@@ -2041,7 +2130,7 @@ const ACTIONS = {
     const c = co(el.dataset.id), ppl = peopleOf(c.id);
     openModal({ title: `Contact ${esc(c.name)}`, sub: 'Not on the platform — use the stored details.',
       body: `${field('Company email', c.email ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : '—')}${field('Phone', c.phone ? `<a href="tel:${esc(c.phone.replace(/\s/g, ''))}">${esc(c.phone)}</a>` : '—')}
-        ${ppl.length ? `<div class="hr"></div><b>Employees</b>${ppl.map(p => field(p.name, [p.email && `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`, p.phone && `<a href="tel:${esc(p.phone.replace(/\s/g, ''))}">${esc(p.phone)}</a>`].filter(Boolean).join(' · ') || '—')).join('')}` : ''}`,
+        ${ppl.length ? `<div class="hr"></div><b>Contacts</b>${ppl.map(p => field(p.name, [p.email && `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`, p.phone && `<a href="tel:${esc(p.phone.replace(/\s/g, ''))}">${esc(p.phone)}</a>`].filter(Boolean).join(' · ') || '—')).join('')}` : ''}`,
       foot: `<button class="btn" data-act="closeModal">Close</button>${c.email ? `<a class="btn pri" href="mailto:${esc(c.email)}">Email company</a>` : ''}` });
   },
 
@@ -2104,7 +2193,7 @@ const ACTIONS = {
     const c = co(el.dataset.id);
     Object.assign(c, { state: 'connected', since: TODAY, owner: ME.name, website: c.domain ? 'www.' + c.domain : '—', joinedFromAdded: true, invite: null });
     peopleOf(c.id).forEach(p => { if (p.email) { p.type = 'employee'; p.conn = 'connected'; } });
-    db.feed.push({ date: TODAY, title: c.name, text: 'Added → Connected · joined the platform', join: true, companyId: c.id });
+    db.feed.push({ date: TODAY, title: c.name, text: 'Lead → Connected · joined the platform', join: true, companyId: c.id });
     touch(c.id); save(); closeModal(); render(); toast(`${esc(c.name)} is now Connected`);
   },
 
@@ -2150,7 +2239,7 @@ const ACTIONS = {
     const views = {
       1: () => `${stepper()}<div class="placeholder" style="flex-direction:column;align-items:center;text-align:center;padding:28px"><b>Drop a CSV or XLSX here</b><span>Companies and contacts, one row each.</span><button class="btn sm" data-act="importNext">Use sample: customers-2026.csv</button></div><p class="foot">Same import pattern as the CRM: upload, map columns, review before anything is saved.</p>`,
       2: () => `${stepper()}${[['Company', 'Company name'], ['Contact name', 'Contact name'], ['E-mail', 'Email'], ['Tel', 'Phone'], ['Land', 'Country'], ['Notes', 'Skip this column']].map(([a, b]) => `<div class="maprow"><span class="chip" style="font-weight:700">${a}</span><span class="muted">→</span><span class="select" style="display:block"><select style="width:100%">${['Company name', 'Contact name', 'Email', 'Phone', 'Country', 'Skip this column'].map(o => `<option ${o === b ? 'selected' : ''}>${o}</option>`).join('')}</select></span></div>`).join('')}`,
-      3: () => `${stepper()}<div class="kv"><div><span>Rows in file</span><b>12</b></div><div><span>New companies (Added)</span><b>9</b></div><div><span>Matched to existing</span><b>2</b> <span class="two">Bauer Construction GmbH, Nordic Bygg AS</span></div><div><span>Needs fixing</span><b style="color:var(--danger)">1</b> <span class="two">Row 7 has no company name</span></div></div><div class="note">Matched rows add contacts to the existing record instead of creating duplicates. Row 7 is skipped.</div>`,
+      3: () => `${stepper()}<div class="kv"><div><span>Rows in file</span><b>12</b></div><div><span>New companies (Lead)</span><b>9</b></div><div><span>Matched to existing</span><b>2</b> <span class="two">Bauer Construction GmbH, Nordic Bygg AS</span></div><div><span>Needs fixing</span><b style="color:var(--danger)">1</b> <span class="two">Row 7 has no company name</span></div></div><div class="note">Matched rows add contacts to the existing record instead of creating duplicates. Row 7 is skipped.</div>`,
     };
     const paint = () => { const m = document.getElementById('modal'); m.querySelector('.mb').innerHTML = views[step](); m.querySelector('.mf').innerHTML = `<button class="btn" data-act="${step === 1 ? 'closeModal' : 'importBack'}">${step === 1 ? 'Cancel' : 'Back'}</button>${step > 1 ? `<button class="btn pri" data-act="${step === 3 ? 'importDone' : 'importNext'}">${step === 3 ? 'Import 11 rows' : 'Continue'}</button>` : ''}`; };
     ACTIONS.importNext = () => { step++; paint(); };
@@ -2312,6 +2401,30 @@ function listedBy({ name, title, org, orgHref, personHref, internal }) {
     <span class="stack" style="flex:1;min-width:0">${who}<span class="two ellip" style="font-size:12px">${esc(title || 'Sales')} @ ${esc(org)}</span></span>
     ${orgA.replace('class="lb-org"', `class="lb-org${internal ? ' internal' : ''}"`)}</div>`;
 }
+/* ---------- External marketplaces (Hexon) — Figma 1325:128448, corrected in Section 7 ---------- */
+const HEXON = {
+  mscuk:  { enabled: true, sites: ['Mascus', 'Machinery Park', 'Truck1'] },
+  lhb:    { enabled: true, sites: ['Mascus', 'Machinery Park'] },
+  hughes: { enabled: false, sites: [] },
+};
+const SITE = { 'Mascus': { domain: 'mascus.com', ini: 'MS' }, 'Machinery Park': { domain: 'machinerypark.com', ini: 'MP' }, 'Truck1': { domain: 'truck1.eu', ini: 'T1' } };
+const EXT_SEED = {
+  'm-r926':  [['Mascus', 'Liebherr MSC UK', 'Live', '2026-09-05', 'Sophie Wright', 'AD-7F3K2'], ['Machinery Park', 'Liebherr MSC UK', 'Live', '2026-09-06', 'Sophie Wright', 'MP-88214'], ['Truck1', 'LWE · shared account', 'Pending', '2026-09-22', 'Sophie Wright', null, true]],
+  'm-ltm1090': [['Mascus', 'Liebherr MSC UK', 'Live', '2026-08-30', 'Priya Shah', 'AD-6Q9LM']],
+  'm-l550':  [['Mascus', 'Liebherr MSC UK', 'Live', '2026-09-09', 'Priya Shah', 'AD-2ZP41'], ['Machinery Park', 'Liebherr MSC UK', 'Pending', '2026-09-24', 'Priya Shah', null]],
+  'm-r938':  [['Mascus', 'Liebherr MSC UK', 'Removed', '2026-08-12', 'James Carter', 'AD-1HX07']],
+};
+function extOf(m) {
+  db.ext = db.ext || {};
+  if (!db.ext[m.id]) db.ext[m.id] = (EXT_SEED[m.id] || []).map(([site, account, status, date, by, ad, shared]) => ({ site, account, status, date, by, ad, shared: !!shared }));
+  return db.ext[m.id];
+}
+function extIndicator(m) {
+  if (!HEXON[m.partner]?.enabled) return '';
+  const rows = extOf(m).filter(r => r.status !== 'Removed'), live = rows.filter(r => r.status === 'Live').length, pend = rows.filter(r => r.status === 'Pending').length;
+  const label = rows.length ? `${live} external${pend ? ` · ${pend} pending` : ''}` : 'Not listed externally';
+  return `<button class="ext-ind${rows.length ? '' : ' none'}" data-act="extOpen" data-id="${m.id}" aria-label="External marketplaces: ${esc(label)}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>${esc(label)}</button>`;
+}
 function listingCard(m) {
   const list = enqOfListing(m.id), nNew = list.filter(e => e.status === 'New').length, who = USERS[m.lister];
   const toggles = m.status === 'Sold' ? [] : [['Sold', 'Mark as sold'], ['Reserved', 'Mark as reserved'], ['Deactivated', 'Temporarily deactivate']];
@@ -2319,7 +2432,7 @@ function listingCard(m) {
     <div class="lc-l"><div class="lc-img">${machineImg(m.model, m.kind)}</div>
       ${toggles.map(([st, l]) => `<button class="tgl" role="switch" aria-checked="${m.status === st}" data-act="mkToggle" data-id="${m.id}" data-st="${st}"><i></i><span>${l}</span></button>`).join('')}</div>
     <div class="lc-m">
-      <div>${lbadge(m.status === 'Deactivated' ? 'Deactivated' : m.status)}${ME.role === 'super' ? ` <span class="chip">${esc(PARTNERS[m.partner].name)}</span>` : ''}</div>
+      <div class="lc-badges">${lbadge(m.status === 'Deactivated' ? 'Deactivated' : m.status)}${extIndicator(m)}${ME.role === 'super' ? `<span class="chip">${esc(PARTNERS[m.partner].name)}</span>` : ''}</div>
       <div class="lc-title">${esc(m.model)}</div><div class="lc-sub">${esc(m.sub)} · ${m.year}</div>
       <div class="lc-loc"><b>Location:</b> ${esc(m.city)}, ${esc(m.country)}</div>
       <div class="lc-specs">${m.specs.map(([k, v]) => `<b>${esc(k)}</b><span>${esc(v)}</span>`).join('')}<b>Price</b><span>${eur(m.price)}</span></div>
@@ -2330,11 +2443,12 @@ function listingCard(m) {
       ${listedBy({ name: who.name, title: who.title, org: PARTNERS[m.partner].name, personHref: `#/person/${who.id === ME.id ? 'me' : 'u:' + who.id}`, orgHref: (ME.role === 'super' || ME.partner === m.partner) ? `#/partner/${m.partner}` : '', internal: PARTNERS[m.partner].orgType === 'internal' })}
     </div>
     <div class="lc-r">
-      <button class="ibtn" data-act="mkOpen" data-id="${m.id}" aria-label="Enquiries for ${esc(m.model)}: ${list.length}${nNew ? `, ${nNew} new` : ''}" title="Enquiries">${I.chat}${list.length ? `<span class="cnt">${list.length}</span>` : ''}${nNew ? '<span class="dotnew"></span>' : ''}</button>
-      <button class="ibtn" data-act="notInScope" data-what="Share listing" aria-label="Share">${I.share}</button>
-      <button class="ibtn" data-act="notInScope" data-what="Listing analytics" aria-label="Analytics">${I.chart}</button>
-      <button class="ibtn" data-act="notInScope" data-what="Edit listing" aria-label="Edit">${I.edit}</button>
-      <button class="ibtn danger" data-act="notInScope" data-what="Delete listing" aria-label="Delete">${I.bin}</button>
+      <button class="ibtn tipr" data-act="mkOpen" data-id="${m.id}" aria-label="Enquiries for ${esc(m.model)}: ${list.length}${nNew ? `, ${nNew} new` : ''}" data-tip="Enquiries${list.length ? ` (${list.length}${nNew ? `, ${nNew} new` : ''})` : ''}">${I.chat}${list.length ? `<span class="cnt">${list.length}</span>` : ''}${nNew ? '<span class="dotnew"></span>' : ''}</button>
+      <button class="ibtn tipr" data-act="extOpen" data-id="${m.id}" aria-label="External marketplace" data-tip="External marketplace"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></button>
+      <button class="ibtn tipr" data-act="notInScope" data-what="Share listing" aria-label="Share listing" data-tip="Share listing">${I.share}</button>
+      <button class="ibtn tipr" data-act="anOpen" data-id="${m.id}" aria-label="Analytics" data-tip="Analytics">${I.chart}</button>
+      <button class="ibtn tipr" data-act="notInScope" data-what="Edit listing" aria-label="Edit listing" data-tip="Edit listing">${I.edit}</button>
+      <button class="ibtn danger tipr" data-act="notInScope" data-what="Delete listing" aria-label="Delete listing" data-tip="Delete listing">${I.bin}</button>
     </div></article>`;
 }
 function otherCard(l) {
@@ -2549,7 +2663,7 @@ function mkForm(m) {
         <div class="field"><label for="f-person">Existing contact</label><span class="select" style="display:block"><select id="f-person" name="person" data-mkperson style="width:100%" ${cid ? '' : 'disabled'}><option value="">${cid ? '— Choose —' : 'Pick an organization first'}</option>${ppl.map(p => `<option value="${p.id}" ${p.name === pv.name ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select></span></div>
         <div class="field"><label>Machine of interest</label><div class="locked">${esc(m.model)} · ${esc(m.city)}<span>Locked</span></div></div>
       </div>
-      <p class="foot" style="margin:0">Linking fills the details below and attaches this enquiry to the organization. If you leave it empty, a new Added organization is created from the company name.</p></div>
+      <p class="foot" style="margin:0">Linking fills the details below and attaches this enquiry to the organization. If you leave it empty, a new Lead organization is created from the company name.</p></div>
     <div class="frow">${inp('name', 'Contact name', { req: true, value: pv.name })}${inp('co', 'Company', { req: true, value: pv.co })}</div>
     <div class="frow">${inp('email', 'Email', { type: 'email', value: pv.email })}${inp('phone', 'Phone', { type: 'tel', value: pv.phone })}</div>
     <div class="field"><label>How did it arrive? <span class="req">*</span></label>
@@ -2572,7 +2686,7 @@ Object.assign(ACTIONS, {
   mktView: el => { go('#/machine/' + el.dataset.id); },
   mktViewModal: el => {
     const i = mktItem(el.dataset.id); if (!i) return;
-    const canEnquire = i.listingId && !i.mine && ME.role !== 'super' && V.companies.some(c => c.id === i.byId);
+    const canEnquire = i.listingId && !i.mine;
     openModal({ title: esc(i.model), sub: `${esc(i.cat)} · ${i.year} · ${esc(i.city)}, ${esc(i.country)}`, wide: true,
       body: `<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:start">
           <div class="lc-img" style="aspect-ratio:4/3;background:#f4f4f5">${machineImg(i.model, i.kind)}</div>
@@ -2676,7 +2790,6 @@ Object.assign(ACTIONS, {
   },
   mkSend: el => {
     const l = listing(el.dataset.id), c = co(l.companyId);
-    if (ME.role === 'super') { toast('Super Admin can view enquiries but not send them for a sales partner. Log in as a partner user to enquire.'); return; }
     openModal({ title: `Send an enquiry about ${esc(l.model)}`, sub: `To ${esc(c.name)} · goes through the platform to the listing owner.`,
       body: `<div class="field"><label for="f-sm">Message <span class="req">*</span></label><textarea id="f-sm" name="msg" placeholder="Availability, price, inspection…"></textarea><span class="err">Write a message</span></div><p class="foot" style="margin:0">It appears under Enquiries sent on ${esc(c.name)}'s profile in Organizations. Their other enquiries stay private to them.</p>`,
       foot: `<button class="btn" data-act="closeModal">Cancel</button><button class="btn pri" data-act="mkSendOk" data-id="${l.id}">Send enquiry</button>` });
@@ -2684,7 +2797,7 @@ Object.assign(ACTIONS, {
   mkSendOk: el => {
     const m = document.getElementById('modal'); if (!requireFields(m, ['msg'])) return;
     const l = listing(el.dataset.id);
-    db.enquiries.push({ id: uid('e'), companyId: l.companyId, listingId: l.id, fromName: ME.name, fromCo: PARTNERS[ME.partner].name, channel: 'Platform', origin: 'Liebherr Marketplace', date: TODAY, time: new Date().toTimeString().slice(0, 5), status: 'New', message: val(m, 'msg'), assignee: ME.id });
+    db.enquiries.push({ id: uid('e'), companyId: l.companyId, listingId: l.id, fromName: ME.name, fromCo: PARTNERS[homeOf(ME.u)]?.name || 'Liebherr', channel: 'Platform', origin: 'Liebherr Marketplace', date: TODAY, time: new Date().toTimeString().slice(0, 5), status: 'New', message: val(m, 'msg'), assignee: ME.id });
     touch(l.companyId); save(); closeModal(); render(); toast('Enquiry sent');
   },
 });
@@ -2738,7 +2851,7 @@ ACTIONS.mkDemo = el => {
 const ctUi = { q: '', view: '', org: '', type: '' };
 function contactList() {
   const q = ctUi.q.trim().toLowerCase();
-  return V.people.filter(p => {
+  return V.people.filter(p => !(p.type === 'employee' && p.conn === 'none')).filter(p => {
     const c = co(p.companyId);
     if (ctUi.org && p.companyId !== ctUi.org) return false;
     if (ctUi.view === 'connected' && !(p.type === 'employee' && p.conn === 'connected')) return false;
@@ -2753,7 +2866,7 @@ const personOpen = p => V.enquiries.filter(e => e.fromName === p.name && e.compa
 function contactCard(p) {
   const c = co(p.companyId), enq = personOpen(p), open = enq.filter(e => OPEN.includes(e.status)).length;
   const emp = p.type === 'employee';
-  const connChip = !emp ? '<span class="tag">Contact</span>' : p.conn === 'connected' ? '<span class="tag emp">Connected</span>' : p.conn === 'pending' ? '<span class="tag">Request pending</span>' : '<span class="tag">Not connected</span>';
+  const connChip = !emp ? '<span class="tag">Lead</span>' : p.conn === 'connected' ? '<span class="tag emp">Connected</span>' : p.conn === 'pending' ? '<span class="tag">Request pending</span>' : '<span class="tag">Not connected</span>';
   const primary = !emp ? `<button class="btn sm" data-act="callEmail" data-id="${p.id}">Call · Email</button>`
     : p.conn === 'connected' ? `<button class="btn sm pri" data-act="message" data-id="${c.id}" data-person="${p.id}">Message</button>`
     : p.conn === 'pending' ? `<button class="btn sm" disabled>Request pending</button>`
@@ -2777,7 +2890,7 @@ function contactsBody() {
     : (V.people.length ? ES('search', 'No contacts match', 'Try a different search or tab, or clear the filters.', '<button class="btn" data-act="ctClear">Clear filters</button>') : ES('people', 'No contacts yet', 'People appear here once you connect with them or add them to an organization.', '<a class="btn" href="#/organizations/list">Go to My Organizations</a>'));
 }
 route('/contacts', () => {
-  const all = V.people;
+  const all = V.people.filter(p => !(p.type === 'employee' && p.conn === 'none'));
   const n = {
     '': all.length,
     connected: all.filter(p => p.type === 'employee' && p.conn === 'connected').length,
@@ -2785,8 +2898,8 @@ route('/contacts', () => {
     none: all.filter(p => p.type === 'employee' && p.conn === 'none').length,
     added: all.filter(p => p.type === 'contact').length,
   };
-  const seg = [['', 'All'], ['connected', 'Connected'], ['pending', 'Pending'], ...(ME.role === 'coworker' ? [] : [['none', 'Not connected']]), ['added', 'Added contacts']];
-  if (ME.role === 'coworker' && ctUi.view === 'none') ctUi.view = '';
+  const seg = [['', 'All'], ['connected', 'Connected'], ['pending', 'Pending'], ['added', 'Leads']];
+  if (ctUi.view === 'none') ctUi.view = '';
   const orgs = V.companies.slice().sort(alpha);
   return { title: 'Contacts', html: `
     <div class="head"><div class="t"><h1>Contacts</h1><p class="sub">${ME.role === 'coworker' ? 'People at organizations assigned to you.' : ME.role === 'super' ? 'Everyone in every sales partner\u2019s organizations.' : `Everyone ${esc(PARTNERS[ME.partner].name)} deals with — platform employees and contacts your team added.`}</p></div>
@@ -2846,15 +2959,63 @@ function inspectionOf(L) {
 }
 const gradeBadge = g => `<span class="badge" style="background:${g === 'Good' ? 'var(--success)' : g === 'Fair' ? 'var(--warning)' : 'var(--error)'};color:#fff">${g}</span>`;
 
+/* Content model for the machine page, following the public listing layout */
+const MF_CAT = {
+  excavator: m => ['Earthmoving and material handling technology', /^Liebherr A ?\d/.test(m) ? 'Wheeled excavators' : 'Crawler excavators'],
+  crane: m => ['Mobile and crawler cranes', /LR/.test(m) ? 'Crawler cranes' : 'Mobile cranes'],
+  loader: () => ['Earthmoving and material handling technology', 'Wheel loaders'],
+  dozer: () => ['Earthmoving and material handling technology', 'Crawler tractors'],
+  truck: () => ['Earthmoving and material handling technology', 'Articulated dump trucks'],
+};
+const MF_GROUP = {
+  excavator: (h, m) => [/^Liebherr A/.test(m) ? 'Undercarriage wheeled excavators' : 'Undercarriage crawler excavators', [[/^Liebherr A/.test(m) ? 'Tyre condition in %' : 'Drive device total in %', String(60 + h % 35)]]],
+  crane: h => ['Crane data', [['Counterweight', `${40 + h % 60} t`], ['Axles', String(3 + h % 4)]]],
+  loader: h => ['Tyres', [['Tyre condition in %', String(55 + h % 40)], ['Tyre size', '23.5 R25']]],
+  dozer: h => ['Undercarriage crawler tractors', [['Track condition in %', String(50 + h % 45)]]],
+  truck: h => ['Tyres', [['Tyre condition in %', String(55 + h % 40)]]],
+};
+const MF_CONFIG = {
+  excavator: 'Solidlink for quick coupler SWA 48 hydraulic · Counterweight standard · Tank refilling pump fuel · Stick 2.65 m · Quick coupler SWA 48 hydraulic · Right-hand side view monitoring camera · Two-piece boom 5.40 m · Centralized lubrication system (automatic)',
+  crane: 'Telescopic boom with full-power telescoping · Variable outrigger base VarioBase® · Hook blocks included · LICCON crane control · Crane cab tilts 20° · Rear-view and winch cameras',
+  loader: 'Z-bar kinematics · Standard bucket 3.2 m³ · Quick coupler hydraulic · Automatic central lubrication · Rear-view camera · Air conditioning',
+  dozer: 'Hydrostatic travel drive · Semi-U blade · Single-shank ripper · Rear-view camera · Air conditioning',
+  truck: 'Tipper body with heated floor · Rear-view camera · Automatic central lubrication',
+};
+function machineFacts(L) {
+  const h = [...L.id].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+  const [cat, sub] = (MF_CAT[L.kind] || MF_CAT.excavator)(L.model);
+  const sn = L.sn || `${1700 + h % 90}/${String(50000 + h * 37 % 9999).padStart(5, '0')}`;
+  const price = `EUR ${Number(L.price).toLocaleString('de-DE')} <small class="muted">(Price excl. VAT)</small>`;
+  const specMap = Object.fromEntries(L.specs);
+  const general = [
+    ['Working hours', (specMap['Operating hours'] || '—').replace(/,/g, '.').replace(' h', ' hr')],
+    ...(specMap['Engine output'] ? [['Power', specMap['Engine output']]] : []),
+    ...(specMap['Operating weight'] ? [['Operating weight', specMap['Operating weight'].replace('.', ',').replace(' t', ' mt')]] : []),
+    ...(specMap['Max. lifting capacity'] ? [['Max. lifting capacity', specMap['Max. lifting capacity']]] : []),
+    ...(specMap['Telescopic boom'] ? [['Telescopic boom', specMap['Telescopic boom']]] : []),
+    ...(specMap['Bucket capacity'] ? [['Bucket capacity', specMap['Bucket capacity']]] : []),
+    ...(specMap['Blade capacity'] ? [['Blade capacity', specMap['Blade capacity']]] : []),
+  ];
+  const [gTitle, gRows] = (MF_GROUP[L.kind] || MF_GROUP.excavator)(h, L.model);
+  const sellerCo = L.companyId ? co(L.companyId) : null;
+  return {
+    kv: [['Category', esc(cat)], ['Sub Category', esc(sub)], ['Manufacturer', 'Liebherr'], ['Model', esc(L.model.replace(/^Liebherr /, ''))], ['Year Of Manufacture', String(L.year)], ['Serial Number', esc(sn)], ['Price', price]],
+    groups: [['Product family', [['Product family', 'Standard']]], ['General machine data', general], [gTitle, gRows], ['Configuration', [['Configuration', MF_CONFIG[L.kind] || MF_CONFIG.excavator]]]],
+    sellerLoc: sellerCo ? `${sellerCo.city}, ${sellerCo.country}` : `${PARTNER_INFO[L.partner]?.city || L.city}, ${PARTNER_INFO[L.partner]?.country || L.country}`,
+    internal: sellerCo ? sellerCo.orgType === 'internal' : PARTNERS[L.partner]?.orgType === 'internal',
+  };
+}
 route('/machine/:key', (p, q) => {
   const L = listingOf(decodeURIComponent(p.key));
   if (!L) return { title: 'Not found', html: ES('machine', 'Machine not available', 'This machine isn\u2019t listed any more.', '<a class="btn" href="#/marketplace">Back to Marketplace</a>') };
   if (q.tab) mdUi.tab = q.tab;
+  if (mdUi.tab === 'inspection') mdUi.tab = 'overview';   // Inspection tab removed
   const enq = enqForKey(L.key), ins = inspectionOf(L);
   const orgVisible = L.companyId && V.companies.some(c => c.id === L.companyId);
-  const canEnquire = L.t === 'l' && ME.role !== 'super' && ME.role !== 'coworker' && orgVisible;
+  const canEnquire = L.t === 'l' && !L.own && (L.status === 'Published' || L.status === 'Reserved');
   const enqAllowed = ME.role === 'super' || (ME.role === 'coworker' ? L.t === 'm' && L.partner === ME.partner : true);
   const G = gallery(L); const i = Math.min(mdUi.slide, G.length - 1);
+  const M = machineFacts(L);
   const facts = [['Year of manufacture', String(L.year)], ...(L.sn ? [['Serial no.', L.sn]] : []), ...L.specs, ['Location', `${L.city}, ${L.country}`]];
   const tabBtn = (k, label, n) => `<a class="tab${mdUi.tab === k ? ' on' : ''}" href="#/machine/${L.key}?tab=${k}" ${mdUi.tab === k ? 'aria-current="page"' : ''}>${label}${n !== undefined ? `<span class="cnt">${n}</span>` : ''}</a>`;
   let body;
@@ -2879,42 +3040,44 @@ route('/machine/:key', (p, q) => {
       <div class="tw etable"><div class="tr th"><div class="msgc">Message</div><div class="w190">From</div><div class="w140">Via</div><div class="w120">Date</div><div class="w110">Status</div></div>
       ${enq.map(e => `<div class="tr click" data-act="mdEnquiry" data-id="${e.id}" data-key="${L.key}" role="button" tabindex="0"><div class="msgc">${esc(e.message.length > 90 ? e.message.slice(0, 88) + '…' : e.message)}</div><div class="w190 stack"><b>${esc(e.fromName)}</b><span class="two" style="font-size:12px">${esc(e.fromCo)}</span></div><div class="w140 stack"><span>${esc(e.channel)}</span><span class="two" style="font-size:12px">${esc(e.origin)}</span></div><div class="w120 stack"><span>${fmt(e.date)}</span><span class="two" style="font-size:12px">${e.time || ''}</span></div><div class="w110">${badge(e.status)}</div></div>`).join('')}</div>`
       : ES('chat', 'No enquiries yet', L.t === 'm' || ME.role === 'super' ? 'Nobody has enquired about this machine yet.' : 'Your team hasn\u2019t enquired about this machine.', canEnquire ? `<button class="btn pri" data-act="mkSend" data-id="${L.id}">Send enquiry</button>` : '');
-  else body = `
-    <div class="row2" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
-      <section class="about" style="border:1px solid var(--border)"><h2>Description</h2>
-        <p style="margin:0;line-height:22px">${esc(L.model)} ${esc(L.cat.toLowerCase())} from ${L.year}, located in ${esc(L.city)}. ${L.specs.map(([k, v]) => `${k}: ${v}`).join(' · ')}. Inspected ${fmt(ins.date)} by ${esc(ins.inspector)} with a condition score of ${ins.score}/100.</p></section>
-      <section class="about" style="border:1px solid var(--border)"><h2>Seller</h2>
-        ${field('Listed by', L.companyId && orgVisible ? `<a class="link" href="#/company/${L.companyId}/overview">${esc(L.owner)}</a>` : esc(L.owner))}
-        ${field('Contact', esc(L.listerName || '—'))}
-        ${L.updated ? field('Updated', fmt(L.updated)) : ''}
-        ${field('Status', lbadge(L.status))}</section>
-    </div>
-    <section class="about" style="border:1px solid var(--border)"><h2>Technical specifications</h2><dl class="dlist">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></section>`;
+  else {
+    const subOf = x => (MF_CAT[x.kind] || MF_CAT.excavator)(x.model)[1], mySub = subOf(L);
+    const similar = marketItems().filter(x => x.kind === L.kind && x.key !== L.key).sort((a, b) => (subOf(b) === mySub) - (subOf(a) === mySub) || Math.abs(a.price - L.price) - Math.abs(b.price - L.price)).slice(0, 3);
+    body = `<div class="md-specs">${M.groups.map(([title, rows]) => `<section class="md-grp"><h2>${esc(title)}</h2>${rows.map(([k, v]) => `<div class="md-row"><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join('')}</section>`).join('')}</div>
+    ${similar.length ? `<section class="md-sim"><h2>Similar Machines</h2><div class="md-sim-g">${similar.map(x => `<a class="md-sim-c" href="#/machine/${x.key}"><span class="md-sim-i">${machineImg(x.model, x.kind)}</span><span class="stack" style="gap:4px;padding:12px 14px 14px"><b>${esc(x.model)}</b><span class="two" style="font-size:12px">${esc(x.cat)} · ${x.year} · ${esc(x.city)}</span><span style="display:flex;gap:8px;align-items:center;margin-top:4px"><b>${eur(x.price)}</b>${lbadge(x.status)}</span></span></a>`).join('')}</div></section>` : ''}`;
+  }
   return { title: `${L.model} — Machine details`, html: `
     <a class="back" href="#" data-act="mdBack">←  Back</a>
-    <section class="card md-top">
+    <section class="card md-top md2">
+      <div class="md-info">
+        <div class="md-tl"><h1>${esc(L.model)}</h1>${lbadge(L.status)}</div>
+        <p class="md-loc">Location: ${esc(L.city)}, ${esc(L.country)}</p>
+        <dl class="md-kv">${M.kv.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
+        <div class="md-sold">
+          <span class="md-sold-k">Machine is sold by:</span>
+          <div class="md-sold-r">
+            <span class="oc-logo${M.internal ? '' : ''}" style="width:56px;height:56px;min-width:56px;min-height:56px;max-width:56px;max-height:56px;flex:0 0 56px;font-size:16px;border-radius:50%${M.internal ? ';background:var(--corporate);border-color:var(--corporate)' : ''}">${esc(initials(L.owner))}</span>
+            <span class="stack" style="flex:1;min-width:0">${L.companyId && orgVisible ? `<a class="md-seller" href="#/company/${L.companyId}/overview">${esc(L.owner)}</a>` : `<b class="md-seller">${esc(L.owner)}</b>`}<span class="md-sl">${esc(M.sellerLoc)}</span></span>
+            <span class="acts">
+              ${enqAllowed && enq.length ? `<button class="btn" data-act="mkOpen" data-id="${L.key}">View enquiries (${enq.length})</button>` : ''}
+              ${L.own ? `<a class="btn pri" href="#/my-listings">Manage in My Listings</a>` : canEnquire ? `<button class="btn pri" data-act="mkSend" data-id="${L.id}">Send enquiry  →</button>` : ''}
+            </span>
+          </div>
+        </div>
+      </div>
       <div class="md-gal">
         <div class="md-main" aria-roledescription="carousel" aria-label="${esc(L.model)} photos">
           ${slideHtml(L, G[i])}
-          <button class="md-nav prev" data-act="mdSlide" data-v="${(i + G.length - 1) % G.length}" aria-label="Previous photo">‹</button>
-          <button class="md-nav next" data-act="mdSlide" data-v="${(i + 1) % G.length}" aria-label="Next photo">›</button>
-          <span class="md-count">${i + 1} / ${G.length} · ${G[i].photo ? 'Photo' : 'Illustration'}</span>
+          <span class="md-count">${i + 1} / ${G.length}</span>
         </div>
-        <div class="md-thumbs">${G.map((g, k) => `<button class="md-th${k === i ? ' on' : ''}" data-act="mdSlide" data-v="${k}" aria-label="Image ${k + 1}: ${esc(g.label)}" aria-current="${k === i}">${slideHtml(L, g)}</button>`).join('')}</div>
-      </div>
-      <div class="md-info">
-        <div>${lbadge(L.status)}</div>
-        <h1 style="margin-top:10px">${esc(L.model)}</h1>
-        <p class="sub" style="font-size:14px">${esc(L.cat)} · ${L.year} · ${esc(L.city)}, ${esc(L.country)}</p>
-        <div class="md-price">${eur(L.price)}</div>
-        <dl class="dlist" style="grid-template-columns:1fr">${facts.slice(0, 5).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
-        <div class="acts" style="margin-top:auto;padding-top:12px">
-          ${enqAllowed && enq.length ? `<button class="btn" data-act="mkOpen" data-id="${L.key}">View enquiries (${enq.length})</button>` : ''}
-          ${L.own ? `<a class="btn pri" href="#/my-listings">Manage in My Listings</a>` : canEnquire ? `<button class="btn pri" data-act="mkSend" data-id="${L.id}">Send enquiry</button>` : ''}
+        <div class="md-strip">
+          <button class="md-arr" data-act="mdSlide" data-v="${(i + G.length - 1) % G.length}" aria-label="Previous photo" ${G.length < 2 ? 'disabled' : ''}>←</button>
+          <div class="md-thumbs">${G.map((g, k) => `<button class="md-th${k === i ? ' on' : ''}" data-act="mdSlide" data-v="${k}" aria-label="Image ${k + 1}: ${esc(g.label)}" aria-current="${k === i}">${slideHtml(L, g)}</button>`).join('')}</div>
+          <button class="md-arr" data-act="mdSlide" data-v="${(i + 1) % G.length}" aria-label="Next photo" ${G.length < 2 ? 'disabled' : ''}>→</button>
         </div>
       </div>
     </section>
-    <section class="card"><nav class="tabs" aria-label="Machine sections">${tabBtn('overview', 'Overview')}${tabBtn('inspection', 'Inspection data')}${tabBtn('enquiries', 'Enquiries', enqAllowed ? enq.length : undefined)}</nav><div class="tc">${body}</div></section>` };
+    <section class="card"><nav class="tabs" aria-label="Machine sections">${tabBtn('overview', 'Overview')}${tabBtn('enquiries', 'Enquiries', enqAllowed ? enq.length : undefined)}</nav><div class="tc">${body}</div></section>` };
 });
 Object.assign(ACTIONS, {
   mdSlide: el => { mdUi.slide = Number(el.dataset.v); render(); document.querySelector(`.md-th[data-v="${mdUi.slide}"]`)?.focus(); },
@@ -2929,7 +3092,6 @@ document.addEventListener('keydown', ev => {
 });
 window.addEventListener('hashchange', () => { const q = parseHash(); if (q.path.startsWith('/machine/') && !q.query.tab) { mdUi.slide = 0; mdUi.tab = 'overview'; } });
 screen({ group:'Machine details', title:'Machine — own listing (Overview)', figma:'new', href:'#/machine/m:m-r926' });
-screen({ group:'Machine details', title:'Machine — network listing, Inspection data', figma:'new', href:'#/machine/l:l1?tab=inspection' });
 screen({ group:'Machine details', title:'Machine — Enquiries tab', figma:'new', href:'#/machine/l:l1?tab=enquiries' });
 
 /* ==================================================================
@@ -2974,7 +3136,7 @@ function personHeader(x, d) {
     connected: ['Connected', 'Platform user · SSO verified', x.loc],
     pending: ['Request pending', 'Platform user · SSO verified', x.loc],
     none: ['Not connected', 'Platform user · SSO verified', x.loc],
-    contact: ['Contact · unverified', `Added by ${x.p?.addedBy || 'your team'}`, x.loc],
+    contact: ['Lead · unverified', `Added by ${x.p?.addedBy || 'your team'}`, x.loc],
   }[x.kind];
   const view = x.companyId ? `<a class="btn" href="#/company/${x.companyId}/overview">View company</a>` : '';
   const actions = {
@@ -3017,20 +3179,29 @@ function personListings(x, d) {
     <div class="tw"><div class="tr th"><div class="c-fl" style="min-width:300px">Machine</div>${showEnq ? '<div class="w150">Enquiries</div>' : ''}<div class="w120">Price</div><div class="w120">Status</div><div class="w150"></div></div>
     ${d.listings.map(L => { const n = enqForKey(L.key).length; return `<div class="tr">
       <div class="c-fl" style="display:flex;gap:12px;align-items:center;min-width:300px"><span class="thumb mthumb" style="width:52px;height:40px">${machineImg(L.model, L.kind)}</span><span class="stack"><b style="font-size:15px">${esc(L.model)}</b><span class="two" style="font-size:12px">${L.year}${L.sn ? ' · ' + esc(L.sn) : ' · ' + esc(L.city)}</span></span></div>
-      ${showEnq ? `<div class="w150"><button class="btn sm" data-act="mkOpen" data-id="${L.key}" ${n ? '' : 'disabled'}>${plural(n, 'enquiry', 'enquiries')} →</button></div>` : ''}
+      ${showEnq ? `<div class="w150">${n ? `<button class="btn sm" data-act="mkOpen" data-id="${L.key}">${plural(n, 'enquiry', 'enquiries')} →</button>` : ''}</div>` : ''}
       <div class="w120"><b>${eur(L.price)}</b></div><div class="w120">${lbadge(L.status)}</div>
       <div class="w150" style="text-align:right"><a class="btn sm pri" href="#/machine/${L.key}">View details</a></div></div>`; }).join('')}</div>`;
 }
 function psEnquiriesTab(x, d) {
-  const rows = [...d.received.map(e => ({ e, dir: 'Received' })), ...d.sent.map(e => ({ e, dir: 'Sent' }))].sort((a, b) => b.e.date.localeCompare(a.e.date));
-  if (!rows.length) return ES('chat', 'No enquiries yet', x.kind === 'self' ? 'Enquiries assigned to you or sent by you will appear here.' : 'There are no enquiries you\u2019re allowed to see for this person.');
-  return `<div class="sh"><div class="t"><h2>Enquiries (${rows.length})</h2><p class="sub">${x.kind === 'self' ? 'Enquiries assigned to you and ones you sent.' : x.kind === 'contact' ? `Enquiries ${esc(x.name)} made to your company.` : `Enquiries on ${esc(x.name.split(' ')[0])}'s listings and ones they sent — as far as you're allowed to see.`}</p></div></div>
-    <div class="tw"><div class="tr th"><div class="c-fl">Machine</div><div class="w110">Direction</div><div class="w190">${x.kind === 'self' ? 'From / to' : 'From'}</div><div class="w120">Date</div><div class="w110">Status</div></div>
-    ${rows.map(({ e, dir }) => { const k = enqKey(e); return `<div class="tr click" ${k ? `data-act="psEnquiry" data-key="${k}" data-id="${e.id}"` : `data-act="openEnquiry" data-id="${e.id}"`} role="button" tabindex="0">
+  const seg = parseHash().query.seg === 'sent' ? 'sent' : 'received';
+  const hasSent = x.kind !== 'contact';
+  const list = (seg === 'sent' && hasSent ? d.sent : d.received).slice().sort((a, b) => b.date.localeCompare(a.date));
+  const href = sg => `#/person/${encodeURIComponent(x.id)}?tab=enquiries${sg === 'sent' ? '&seg=sent' : ''}`;
+  const sub = hasSent ? `<div class="subtabs" role="tablist" aria-label="Enquiries"><a role="tab" href="${href('received')}" class="${seg === 'received' ? 'on' : ''}" aria-selected="${seg === 'received'}">Received <span class="cnt">${d.received.length}</span></a><a role="tab" href="${href('sent')}" class="${seg === 'sent' ? 'on' : ''}" aria-selected="${seg === 'sent'}">Sent <span class="cnt">${d.sent.length}</span></a></div>` : '';
+  const own = x.kind === 'self' || x.kind === 'colleague';
+  const title = seg === 'sent' ? `Enquiries sent (${list.length})` : `Enquiries received (${list.length})`;
+  const desc = seg === 'sent'
+    ? (own ? `Enquiries ${x.kind === 'self' ? 'you' : esc(x.name.split(' ')[0])} sent about other organizations\u2019 listings.` : `Enquiries ${esc(x.name.split(' ')[0])} sent to your company.`)
+    : (own ? `Enquiries assigned to ${x.kind === 'self' ? 'you' : esc(x.name.split(' ')[0])}.` : x.kind === 'contact' ? `Enquiries ${esc(x.name)} made to your company.` : `Enquiries on ${esc(x.name.split(' ')[0])}\u2019s listings that you\u2019re allowed to see.`);
+  const body = list.length ? `<div class="tw"><div class="tr th"><div class="c-fl">Machine</div><div class="w190">${seg === 'sent' ? 'To' : 'From'}</div><div class="w140">Via</div><div class="w120">Date</div><div class="w110">Status</div></div>
+    ${list.map(e => { const k = enqKey(e); return `<div class="tr click" ${k ? `data-act="psEnquiry" data-key="${k}" data-id="${e.id}"` : `data-act="openEnquiry" data-id="${e.id}"`} role="button" tabindex="0">
       <div class="c-fl stack"><span class="nm">${esc(machineOf(e) || (e.ownListingId ? listingOf('m:' + e.ownListingId)?.model : '') || 'Company-level')}</span><span class="two" style="font-size:12px">${esc(e.message.slice(0, 70))}${e.message.length > 70 ? '…' : ''}</span></div>
-      <div class="w110"><span class="tag">${dir}</span></div>
-      <div class="w190 stack"><span>${esc(dir === 'Sent' ? co(e.companyId)?.name || '' : e.fromName)}</span><span class="two" style="font-size:12px">${esc(dir === 'Sent' ? 'to' : e.fromCo)}</span></div>
-      <div class="w120">${fmt(e.date)}</div><div class="w110">${badge(e.status)}</div></div>`; }).join('')}</div>`;
+      <div class="w190 stack"><span>${esc(seg === 'sent' ? co(e.companyId)?.name || '' : e.fromName)}</span><span class="two" style="font-size:12px">${esc(seg === 'sent' ? e.fromName : e.fromCo)}</span></div>
+      <div class="w140 stack"><span>${esc(e.channel)}</span><span class="two" style="font-size:12px">${esc(e.origin)}</span></div>
+      <div class="w120">${fmt(e.date)}</div><div class="w110">${badge(e.status)}</div></div>`; }).join('')}</div>`
+    : ES(seg === 'sent' ? 'send' : 'chat', seg === 'sent' ? 'No enquiries sent' : 'No enquiries received', seg === 'sent' ? 'Enquiries sent will appear here.' : 'Enquiries received will appear here.');
+  return `${sub}<div class="sh"><div class="t"><h2>${title}</h2><p class="sub">${desc}</p></div></div>${body}`;
 }
 function personActivity(x, d) {
   const items = [
@@ -3096,7 +3267,7 @@ function ownOrgData(pid) {
 }
 route('/partner/:id', (p, q) => {
   const pid = p.id, P = PARTNERS[pid], I = PARTNER_INFO[pid];
-  if (!P || (ME.role !== 'super' && homeOf(ME.u) !== pid)) return { title: 'Not found', html: ES('org', 'Organization not found', 'You can only open your own organization here.', '<a class="btn" href="#/organizations/list">Back to My Organizations</a>') };
+  if (!P || (ME.role !== 'super' && homeOf(ME.u) !== pid)) return { title: 'Not found', html: ES('org', 'Organization not found', 'You can only open your own organization here.', '<a class="btn" href="#/organizations/list">Back to Organizations</a>') };
   const D = ownOrgData(pid), manage = canManageOrg(pid), mine = homeOf(ME.u) === pid;
   const tabs = [['overview', 'Overview'], ['team', 'Team', D.team.length], ['listings', 'Listings', D.listings.length], ['enquiries', 'Enquiries', D.received.length + D.sent.length], ['newsfeed', 'Newsfeed']];
   const tab = tabs.some(t => t[0] === q.tab) ? q.tab : 'overview';
@@ -3109,11 +3280,11 @@ route('/partner/:id', (p, q) => {
   if (tab === 'team') body = `<div class="sh"><div class="t"><h2>Team (${D.team.length})</h2><p class="sub">People at ${esc(P.name)} on the platform.</p></div>${manage ? `<button class="btn sm pri" data-act="ownAddMember" data-id="${pid}">Add team member</button>` : ''}</div>
       ${D.team.length ? `<div class="tw"><div class="tr th"><div class="c-fl">Person</div><div class="w190">Role</div><div class="w150">Location</div>${manage ? '<div class="w90" style="text-align:right">Action</div>' : ''}</div>
       ${D.team.map(u => `<div class="tr"><a class="c-fl plink" href="#/person/${u.id === ME.id ? 'me' : 'u:' + u.id}" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit"><span class="av">${initials(u.name)}</span><span class="stack"><span class="nm">${esc(u.name)}${u.id === ME.id ? ' <span class="tag">You</span>' : ''}</span><span class="two" style="font-size:12px">${esc(u.title)}</span></span></a><div class="w190"><span class="tag">${esc(ROLE_LABEL[u.role])}</span></div><div class="w150 muted">${esc(u.loc)}</div>${manage ? `<div class="w90" style="display:flex;justify-content:flex-end">${u.id === ME.id ? '' : `<button class="oc-del" data-act="ownRemoveMember" data-id="${u.id}" aria-label="Remove ${esc(u.name)}" title="Remove from team"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button>`}</div>` : ''}</div>`).join('')}</div>` : ES('people', 'No team members yet', 'Invite colleagues so they can list machines and handle enquiries.', manage ? `<button class="btn pri" data-act="ownAddMember" data-id="${pid}">Add team member</button>` : '')}`;
-  if (tab === 'listings') body = `<div class="sh"><div class="t"><h2>Listings (${D.listings.length})</h2><p class="sub">Machines ${esc(P.name)} has listed.</p></div>${manage || ME.role === 'coworker' ? `<button class="btn sm pri" data-act="ownAddListing" data-id="${pid}">Add listing</button>` : ''}</div>
-      ${D.listings.length ? `<div class="tw"><div class="tr th"><div class="c-fl" style="min-width:300px">Machine</div><div class="w150">Listed by</div><div class="w110">Enquiries</div><div class="w120">Price</div><div class="w120">Status</div><div class="w260" style="text-align:right">Actions</div></div>
-      ${D.listings.map(L => { const n = enqForKey(L.key).length; return `<div class="tr"><div class="c-fl" style="display:flex;gap:12px;align-items:center;min-width:300px"><span class="thumb mthumb" style="width:64px;height:48px">${machineImg(L.model, L.kind)}</span><span class="stack"><b>${esc(L.model)}</b><span class="two" style="font-size:12px">${esc(L.cat)} · ${L.year} · ${esc(L.city)}</span></span></div><div class="w150">${esc(L.listerName || '—')}</div><div class="w110 num">${n}</div><div class="w120"><b>${eur(L.price)}</b></div><div class="w120">${lbadge(L.status)}</div>
-        <div class="w260 acts-cell"><button class="btn sm" data-act="mkOpen" data-id="${L.key}" ${n ? '' : 'disabled'}>View enquiries</button><a class="btn sm pri" href="#/machine/${L.key}">View details</a>${manage ? `<button class="oc-del" data-act="ownRemoveListing" data-id="${L.id}" aria-label="Remove ${esc(L.model)}" title="Remove listing"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg></button>` : ''}</div></div>`; }).join('')}</div>`
-      : ES('machine', 'No listings yet', `${esc(P.name)} hasn\u2019t listed any machines.`, manage ? `<button class="btn pri" data-act="ownAddListing" data-id="${pid}">Add listing</button>` : '')}`;
+  if (tab === 'listings') body = `<div class="sh"><div class="t"><h2>Listings (${D.listings.length})</h2><p class="sub">Machines ${esc(P.name)} has listed.</p></div></div>
+      ${D.listings.length ? `<div class="tw"><div class="tr th"><div class="c-fl" style="min-width:300px">Machine</div><div class="w150">Listed by</div><div class="w110">Enquiries</div><div class="w120">Price</div><div class="w120">Status</div><div class="w150" style="text-align:right">Actions</div></div>
+      ${D.listings.map(L => { const n = enqForKey(L.key).length; return `<div class="tr"><div class="c-fl" style="display:flex;gap:12px;align-items:center;min-width:300px"><span class="thumb mthumb" style="width:64px;height:48px">${machineImg(L.model, L.kind)}</span><span class="stack"><b>${esc(L.model)}</b><span class="two" style="font-size:12px">${esc(L.cat)} · ${L.year} · ${esc(L.city)}</span></span></div><div class="w150">${esc(L.listerName || '—')}</div><div class="w110 num">${n || ''}</div><div class="w120"><b>${eur(L.price)}</b></div><div class="w120">${lbadge(L.status)}</div>
+        <div class="w150 acts-cell">${n ? iconBtn('chat', 'View enquiries', `data-act="mkOpen" data-id="${L.key}"`) : ''}${iconLink('eye', 'View details', `#/machine/${L.key}`)}${manage ? iconBtn('bin', 'Remove listing', `data-act="ownRemoveListing" data-id="${L.id}"`, true) : ''}</div></div>`; }).join('')}</div>`
+      : ES('machine', 'No listings yet', `${esc(P.name)} hasn\u2019t listed any machines.`)}`;
   if (tab === 'enquiries') {
     const list = seg === 'sent' ? D.sent : D.received;
     body = `<div class="subtabs" role="tablist"><a role="tab" href="#/partner/${pid}?tab=enquiries" class="${seg === 'received' ? 'on' : ''}">Received <span class="cnt">${D.received.length}</span></a><a role="tab" href="#/partner/${pid}?tab=enquiries&seg=sent" class="${seg === 'sent' ? 'on' : ''}">Sent <span class="cnt">${D.sent.length}</span></a></div>
@@ -3130,7 +3301,7 @@ route('/partner/:id', (p, q) => {
   }
   const stat = (icon, n, l) => `<div class="bstat"><span class="bs-ic">${icon}</span><span class="stack"><b>${n}</b><span>${l}</span></span></div>`;
   return { title: `${P.name} — ${mine ? 'Your organization' : 'Organization'}`, html: `
-    <a class="back" href="#/organizations/list">←  My Organizations</a>
+    <a class="back" href="#/organizations/list">←  Organizations</a>
     <section class="banner-wrap"><div class="banner"><div class="bn-row">
       <span class="bn-logo" style="background:var(--corporate)">${initials(P.name)}</span>
       <div class="bn-id"><div class="bn-title"><h1>${esc(P.name)}</h1><span class="statepill"><i aria-hidden="true"></i>${mine ? 'Your organization' : esc(P.type)}</span>${typePill(P.orgType)}</div>
@@ -3207,6 +3378,134 @@ Object.assign(ACTIONS, {
   },
   ownPostDel: el => { db.ownPosts = (db.ownPosts || []).filter(x => x.id !== el.dataset.id); save(); render(); toast('Post deleted'); },
 });
+
+
+Object.assign(ACTIONS, {
+  extOpen: el => {
+    const m = mlisting(el.dataset.id), hx = HEXON[m.partner] || { enabled: false, sites: [] }, P = PARTNERS[m.partner];
+    const head = `<div class="ext-h"><span class="thumb mthumb" style="width:52px;height:40px">${machineImg(m.model, m.kind)}</span><span class="stack"><b>${esc(m.model)}</b><span class="two" style="font-size:12px">${esc(m.city)}, ${esc(m.country)}</span></span></div>`;
+    let body, foot = '<button class="btn" data-act="closeModal">Close</button>';
+    if (!hx.enabled) body = head + ES('lock', 'External publishing isn\u2019t enabled', `${esc(P.name)} doesn\u2019t have a Hexon account yet, so listings can\u2019t be published to Mascus, Machinery Park or other sites. A Super Admin can enable it in the sales partner\u2019s settings.`, '', { bare: true });
+    else {
+      const rows = extOf(m);
+      body = head + (rows.length ? `<p class="muted" style="margin:0">Where this machine is published outside the Liebherr marketplace. Listings are pushed through Hexon, so a site can take time to approve one.</p>
+        <div class="tw"><div class="tr th"><div class="c-fl">Marketplace</div><div class="w190">Ad reference</div><div class="w110">Status</div><div class="w150">Published</div></div>
+        ${rows.map(r => { const S = SITE[r.site]; const st = r.status === 'Live' ? 'var(--success)' : r.status === 'Pending' ? 'var(--warning)' : 'var(--n-100)', fg = r.status === 'Removed' ? 'var(--n-600)' : '#fff';
+          return `<div class="tr"><div class="c-fl" style="display:flex;gap:12px;align-items:center"><span class="oc-logo" style="width:36px;height:36px;min-width:36px;min-height:36px;max-width:36px;max-height:36px;flex:0 0 36px;font-size:11px">${S.ini}</span><span class="stack"><b>${esc(r.site)}</b><span class="two" style="font-size:12px">${esc(r.account)}</span></span></div>
+            <div class="w190 stack">${r.ad && r.status !== 'Pending' ? `<a class="link" href="#" data-act="notInScope" data-what="${esc(S.domain)}">${esc(S.domain)} ↗</a><span class="two" style="font-size:12px">ad ${esc(r.ad)}</span>` : `<span class="muted">No URL yet</span><span class="two" style="font-size:12px">${r.shared ? 'LWE · until approved' : 'until approved'}</span>`}</div>
+            <div class="w110"><span class="badge" style="background:${st};color:${fg}">${r.status}</span></div>
+            <div class="w150 stack">${r.status === 'Pending' ? `<span>Pushed ${fmt(r.date)}</span><span class="two" style="font-size:12px">awaiting site approval</span>` : `<span>${fmt(r.date)}</span><span class="two" style="font-size:12px">by ${esc(r.by)}</span>`}</div></div>`; }).join('')}</div>
+        ${rows.some(r => r.shared) ? `<div class="note">${esc(rows.find(r => r.shared).site)} was published under the LWE advertiser account because ${esc(P.name)} has no account of its own on that site — any leads it returns arrive addressed to LWE.</div>` : ''}`
+        : ES('machine', 'Not listed on external marketplaces', `This machine is only on the Liebherr marketplace. Sites enabled for ${esc(P.name)}: ${hx.sites.join(', ')}.`, '', { bare: true }));
+      foot = `<span class="muted" style="margin-right:auto;font-size:13px">Sites shown are those enabled for this sales partner in Hexon.</span>` + foot;
+    }
+    openModal({ title: 'Listed on external marketplaces', sub: 'Mascus, Machinery Park and other sites, published through Hexon.', wide: true, body, foot });
+    document.querySelector('#modal .modal')?.classList.add('xwide');
+  },
+});
+
+/* ==================================================================
+   LISTING ANALYTICS MODAL — Figma 1625:74506
+   Tabs: Overview · Reach / Views · Audience
+   ================================================================== */
+const AN = { id: null, tab: 'overview' };
+function anData(m) {
+  const h = [...m.id].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+  const start = new Date((m.updated || '2026-08-20') + 'T00:00:00'); start.setDate(start.getDate() - 14);
+  const days = 28, series = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    const wave = Math.sin((i + h % 7) / 3.1) * 4 + Math.cos((i + h % 5) / 5.3) * 3;
+    series.push({ date: d.toISOString().slice(0, 10), v: Math.max(0, Math.round(6 + wave + (h % 4))) });
+  }
+  const views = series.reduce((a, x) => a + x.v, 0);
+  const sources = [['Liebherr Marketplace', 0.52], ['Mascus', 0.21], ['Machinery Park', 0.12], ['Direct link / shared', 0.1], ['Newsfeed post', 0.05]]
+    .map(([k, f]) => [k, Math.round(views * f)]);
+  const countries = [['Germany', 0.31], ['United Kingdom', 0.24], ['France', 0.14], ['Sweden', 0.1], ['Netherlands', 0.08], ['Other', 0.13]].map(([k, f]) => [k, Math.round(views * f)]);
+  const audience = [['Sales partners', 0.44], ['External dealers', 0.21], ['Your customers', 0.23], ['Liebherr internal', 0.12]].map(([k, f]) => [k, Math.round(views * f)]);
+  const viewers = V.companies.filter(c => c.state === 'connected').slice(0, 5).map((c, i) => [c.name, Math.max(1, Math.round(views * (0.09 - i * 0.012))), c.id]);
+  return { series, views, reach: Math.round(views * 2.1), unique: Math.round(views * 0.52), enquiries: enqOfListing(m.id).length, sources, countries, audience, viewers,
+    since: fmt(series[0].date), saves: Math.round(views * 0.08), shares: Math.round(views * 0.03) };
+}
+function anChart(series, { h = 220, w = 720 } = {}) {
+  const max = Math.max(4, ...series.map(p => p.v)), pad = { l: 34, r: 12, t: 12, b: 26 };
+  const X = i => pad.l + i * (w - pad.l - pad.r) / (series.length - 1), Y = v => pad.t + (1 - v / max) * (h - pad.t - pad.b);
+  let d = `M${X(0)},${Y(series[0].v)}`;
+  for (let i = 1; i < series.length; i++) { const x0 = X(i - 1), x1 = X(i), cx = (x0 + x1) / 2; d += ` C${cx},${Y(series[i - 1].v)} ${cx},${Y(series[i].v)} ${x1},${Y(series[i].v)}`; }
+  const area = `${d} L${X(series.length - 1)},${h - pad.b} L${X(0)},${h - pad.b} Z`;
+  const ticks = [0, Math.round(max / 3), Math.round(2 * max / 3), max];
+  const lab = series.map((p, i) => i % 3 === 0 ? `<text x="${X(i)}" y="${h - 6}" text-anchor="middle">${fmt(p.date).slice(0, 6)}</text>` : '').join('');
+  return `<svg class="an-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Listing views per day" data-an-series='${JSON.stringify(series.map(p => [p.date, p.v]))}' data-w="${w}" data-h="${h}" data-max="${max}">
+    <defs><linearGradient id="an-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd000" stop-opacity=".55"/><stop offset="1" stop-color="#ffd000" stop-opacity=".05"/></linearGradient></defs>
+    ${ticks.map(t => `<line x1="${pad.l}" x2="${w - pad.r}" y1="${Y(t)}" y2="${Y(t)}" stroke="#e5e8ed"/><text x="${pad.l - 8}" y="${Y(t) + 4}" text-anchor="end">${t}</text>`).join('')}
+    <path d="${area}" fill="url(#an-g)"/><path d="${d}" fill="none" stroke="#000" stroke-width="2"/>
+    <g class="an-labels">${lab}</g>
+    <line class="an-guide" x1="0" x2="0" y1="${pad.t}" y2="${h - pad.b}" stroke="#bdc4ca" stroke-dasharray="3 3" visibility="hidden"/>
+    <circle class="an-dot" r="5" fill="#000" stroke="#fff" stroke-width="2" visibility="hidden"/>
+  </svg><div class="an-tip" hidden><b></b><span></span></div>`;
+}
+const anIcon = { eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', reach: '<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>', users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.8 3.4-6 6.5-6s5.7 2.2 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.2 4.7 2.2 5.4 5.8"/>', chat: '<path d="M4 5h16v11H9l-5 4z"/>' };
+const anTile = (ic, n, l) => `<div class="an-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${anIcon[ic]}</svg><b>${n}</b><span>${l}</span></div>`;
+const anBars = (rows, color = 'var(--slate)') => { const max = Math.max(1, ...rows.map(r => r[1])); return `<div class="an-bars">${rows.map(([k, v, id]) => `<div class="an-bar"><span class="ellip">${id ? `<a class="link" href="#/company/${id}/overview" data-act="anGo" data-id="${id}">${esc(k)}</a>` : esc(k)}</span><span class="an-track"><i style="width:${Math.max(2, v / max * 100)}%;background:${color}"></i></span><b>${v}</b></div>`).join('')}</div>`; };
+function anRender() {
+  const box = document.getElementById('an'); if (!box) return;
+  const m = mlisting(AN.id), D = anData(m);
+  const tabs = [['overview', 'Overview', anIcon.eye], ['reach', 'Reach / Views', anIcon.reach], ['audience', 'Audience', anIcon.users]];
+  let body = '';
+  if (AN.tab === 'overview') body = `
+    <div class="an-top"><h2>Overview</h2><div class="an-range"><span>${D.since} – Now</span><b>Since publish</b></div></div>
+    <p class="an-head">This listing has ${D.views} views since it was published</p>
+    <div class="an-grid">
+      <section class="an-card an-chart"><h3>Listing views</h3><div class="an-plot">${anChart(D.series)}</div></section>
+      <section class="an-card an-machine"><span class="an-img">${machineImg(m.model, m.kind)}</span><div class="stack" style="padding:14px 16px;gap:4px"><b style="font-size:16px">${esc(m.model)}</b><span class="two">${eur(m.price)}</span><span class="two" style="font-size:12px;margin-top:6px">${esc(m.city)}, ${esc(m.country)}</span></div></section>
+    </div>
+    <div class="an-tiles">${anTile('eye', D.views, 'Total views')}${anTile('reach', D.reach, 'Total reach')}${anTile('users', D.unique, 'Unique visitors')}${anTile('chat', D.enquiries, 'Enquiries')}</div>`;
+  if (AN.tab === 'reach') body = `
+    <div class="an-top"><h2>Reach / Views</h2><div class="an-range"><span>${D.since} – Now</span><b>Since publish</b></div></div>
+    <div class="an-tiles">${anTile('eye', D.views, 'Views')}${anTile('reach', D.reach, 'Reach — times shown')}${anTile('users', `${Math.round(D.views / D.reach * 100)}%`, 'View rate')}${anTile('chat', `${D.views ? (D.enquiries / D.views * 100).toFixed(1) : 0}%`, 'Enquiry rate')}</div>
+    <div class="an-grid">
+      <section class="an-card an-chart"><h3>Views per day</h3><div class="an-plot">${anChart(D.series)}</div></section>
+      <section class="an-card"><h3>Where views came from</h3>${anBars(D.sources, 'var(--corporate)')}<p class="foot">External sites are the ones this listing is published on through Hexon.</p></section>
+    </div>`;
+  if (AN.tab === 'audience') body = `
+    <div class="an-top"><h2>Audience</h2><div class="an-range"><span>${D.since} – Now</span><b>Since publish</b></div></div>
+    <div class="an-tiles">${anTile('users', D.unique, 'Unique visitors')}${anTile('eye', (D.views / Math.max(1, D.unique)).toFixed(1), 'Views per visitor')}${anTile('reach', D.saves, 'Saved to watch list')}${anTile('chat', D.shares, 'Shared')}</div>
+    <div class="an-3">
+      <section class="an-card"><h3>Who viewed it</h3>${anBars(D.audience)}</section>
+      <section class="an-card"><h3>Top countries</h3>${anBars(D.countries)}</section>
+      <section class="an-card"><h3>Organizations viewing most</h3>${D.viewers.length ? anBars(D.viewers, 'var(--green)') : ES('org', 'No organization data', '', '', { compact: true })}<p class="foot">Platform users only — anonymous marketplace visitors aren't identified.</p></section>
+    </div>`;
+  box.innerHTML = `<div class="an-modal" role="dialog" aria-modal="true" aria-label="Listing analytics — ${esc(m.model)}">
+    <div class="an-h"><nav class="an-tabs" role="tablist">${tabs.map(([k, l, ic]) => `<button role="tab" aria-selected="${AN.tab === k}" class="${AN.tab === k ? 'on' : ''}" data-act="anTab" data-v="${k}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">${ic}</svg>${l}</button>`).join('')}</nav>
+      <button class="icon-btn" data-act="anClose" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="an-b">${body}</div></div>`;
+  box.querySelector('.an-tabs .on')?.focus();
+}
+function anOpen(mid) { AN.id = mid; AN.tab = 'overview'; let s = document.getElementById('an'); if (!s) { s = document.createElement('div'); s.id = 'an'; s.className = 'scrim'; s.addEventListener('mousedown', e => { if (e.target === s) anClose(); }); document.body.appendChild(s); } lastFocus = document.activeElement; anRender(); }
+function anClose() { document.getElementById('an')?.remove(); lastFocus?.focus?.(); }
+Object.assign(ACTIONS, {
+  anOpen: el => anOpen(el.dataset.id), anClose,
+  anTab: el => { AN.tab = el.dataset.v; anRender(); },
+  anGo: el => { anClose(); go(`#/company/${el.dataset.id}/overview`); },
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && document.getElementById('an')) anClose(); });
+// hover tooltip on the views chart
+document.addEventListener('mousemove', ev => {
+  const svg = ev.target.closest && ev.target.closest('.an-svg'); const plot = svg?.parentElement;
+  document.querySelectorAll('.an-plot').forEach(p => { if (p !== plot) { p.querySelector('.an-tip')?.setAttribute('hidden', ''); p.querySelectorAll('.an-dot,.an-guide').forEach(n => n.setAttribute('visibility', 'hidden')); } });
+  if (!svg) return;
+  const data = JSON.parse(svg.dataset.anSeries), w = +svg.dataset.w, h = +svg.dataset.h, max = +svg.dataset.max, pad = { l: 34, r: 12, t: 12, b: 26 };
+  const r = svg.getBoundingClientRect(), vx = (ev.clientX - r.left) / r.width * w;
+  const i = Math.max(0, Math.min(data.length - 1, Math.round((vx - pad.l) / ((w - pad.l - pad.r) / (data.length - 1)))));
+  const x = pad.l + i * (w - pad.l - pad.r) / (data.length - 1), y = pad.t + (1 - data[i][1] / max) * (h - pad.t - pad.b);
+  const dot = svg.querySelector('.an-dot'), guide = svg.querySelector('.an-guide');
+  dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('visibility', 'visible'); guide.setAttribute('x1', x); guide.setAttribute('x2', x); guide.setAttribute('visibility', 'visible');
+  const tip = plot.querySelector('.an-tip'); tip.hidden = false; tip.querySelector('b').textContent = data[i][1];
+  tip.querySelector('span').textContent = `Views, ${fmt(data[i][0]).slice(0, 6)}`;
+  const px = x / w * r.width, py = y / h * r.height; tip.style.left = Math.min(r.width - 110, px + 12) + 'px'; tip.style.top = Math.max(0, py - 56) + 'px';
+});
+screen({ group:'My Listings — Machine enquiries (Section 2)', title:'Listing analytics — Overview', figma:'1625:74506', act:'anDemo', id:'overview' });
+ACTIONS.anDemo = el => { if (ME.role !== 'msc') { db.ui.user = 'james'; save(); } go('#/my-listings'); setTimeout(() => { anOpen('m-r926'); if (el.dataset.id !== 'overview') { AN.tab = el.dataset.id; anRender(); } }, 40); };
 
 render();
 </script>
